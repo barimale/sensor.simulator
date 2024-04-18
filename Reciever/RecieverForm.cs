@@ -71,7 +71,26 @@ namespace Reciever
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
 
+                    var result = new SensorResult(message);
+                    var sensor = sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
+
                     // WIP add to label in tabPage
+                    foreach(Control page in tbdynamic.TabPages)
+                    {
+                        if((int)page.Tag == sensor.ID)
+                        {
+                            page.BackColor = result.FromClassificationToColor();
+                            // apply backcolor
+
+                            // WIP apply value
+                            var json = new Label();
+                            json.AutoSize = true;
+                            json.Text = JsonConvert.SerializeObject(result);
+                            json.ForeColor = Color.Black;
+                            page.Controls.Clear();
+                            //page.Controls.Add(json);
+                        }
+                    }
                     Console.WriteLine($" [x] Received {message}");
                 };
 
