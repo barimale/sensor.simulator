@@ -6,6 +6,7 @@ namespace Transmiter
 {
     public partial class TransmiterForm : Form
     {
+        private List<ChannelService> _channels = new List<ChannelService>();
         private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
         private SensorConfigCollection sensors;
         public TransmiterForm()
@@ -29,6 +30,7 @@ namespace Transmiter
             // when
             this.sensors = reader.Read(path);
 
+            // sensors to tabPages
             foreach (var item in sensors.Sensors)
             {
                 TabPage mPage = new TabPage();
@@ -46,21 +48,28 @@ namespace Transmiter
             this.Controls.Add(tbdynamic);
             tbdynamic.BringToFront();
 
+            // sensors to simulators
             foreach (var item in sensors.Sensors)
             {
-                var MyTimer = new System.Windows.Forms.Timer();
+                var simulator = new System.Windows.Forms.Timer();
                 double number = 1000;
-                MyTimer.Interval = (int)(number / item.Frequency); // seconds
-                MyTimer.Tick += new EventHandler(MyTimer_Tick);
-                MyTimer.Tag = item.ID;
-                simulators.Add(MyTimer);
-
+                simulator.Interval = (int)(number / item.Frequency); // seconds
+                simulator.Tick += new EventHandler(Simulator_Tick);
+                simulator.Tag = item.ID;
+                simulators.Add(simulator);
             }
-            // create tab in tabs
-            // for each tab in tabs create channel rabbitmq
+
+            var localhost = "localhost";
+            // sensors to channels
+            foreach (var item in sensors.Sensors)
+            {
+                var service = new ChannelService(localhost);
+                service.CreateChannel(item.ID.ToString());
+                _channels.Add(service);
+            }
         }
 
-        private void MyTimer_Tick(object sender, EventArgs e)
+        private void Simulator_Tick(object sender, EventArgs e)
         {
             var tag = sender as System.Windows.Forms.Timer;
             if (tag == null)
@@ -72,7 +81,15 @@ namespace Transmiter
                 .Sensors
                 .FirstOrDefault(p => p.ID == tagID);
 
-            // rabbitMQ client service here
+            if (configuration == null)
+                return;
+
+            var channel = _channels
+                .FirstOrDefault(p => p.ChannelName == configuration.ID.ToString());
+            
+            if (channel == null)
+                return;
+
             MessageBox.Show("The form will now be closed.", "Time Elapsed");
             this.Close();
         }
