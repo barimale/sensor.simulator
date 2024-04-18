@@ -1,7 +1,11 @@
+using Logic.Model;
+
 namespace Reciever
 {
     public partial class RecieverForm : Form
     {
+        private SensorConfigCollection sensors;
+
         public RecieverForm()
         {
             InitializeComponent();
