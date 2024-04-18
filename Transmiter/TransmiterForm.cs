@@ -131,24 +131,31 @@ namespace Transmiter
 
             var tagID = (int)tag.Tag;
 
-            var configuration = receivers
+            var configurations = receivers
                 .Receivers
-                .FirstOrDefault(p => p.SensorId == tagID);
+                .Where(p => p.SensorId == tagID)
+                .ToList();
 
-            if (configuration == null)
-                return;
+            var cpunt = configurations.Count;
 
-            var channel = _channels
-                .FirstOrDefault(p => p.ChannelName == configuration.ToChannelName());
+            foreach(var configuration in configurations)
+            {
+                if (configuration == null)
+                    return;
+
+                var channel = _channels
+                    .FirstOrDefault(p => p.ChannelName == configuration.ToChannelName());
             
-            if (channel == null)
-                return;
+                if (channel == null)
+                    return;
 
-            var message = sensors
-                .Sensors
-                .FirstOrDefault(p => p.ID == configuration.SensorId)
-                .ToString();
-            channel.Send(message);
+                var message = sensors
+                    .Sensors
+                    .FirstOrDefault(p => p.ID == configuration.SensorId)
+                    .ToString();
+
+                channel.Send(message);
+            }
         }
 
         private void sTARTToolStripMenuItem_Click(object sender, EventArgs e)

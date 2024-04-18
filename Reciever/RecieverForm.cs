@@ -111,7 +111,7 @@ namespace Reciever
             {
                 TabPage mPage = new TabPage();
                 mPage.Text = item.ToChannelName();
-                mPage.Tag = item.ID;
+                mPage.Tag = item.SensorId; // WIP ID
                 mPage.BackColor = Color.White;
                 tbdynamic.TabPages.Add(mPage);
             }
