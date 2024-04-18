@@ -105,7 +105,7 @@ namespace Reciever
 
         private void MapReceiversToPages()
         {
-            foreach (var item in receivers.Receivers)
+            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
                 TabPage mPage = new TabPage();
                 mPage.Text = item.ToChannelName();
