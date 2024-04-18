@@ -1,6 +1,5 @@
 using Logic.Model;
 using Logic.Services;
-using Newtonsoft.Json;
 
 namespace Transmiter
 {
@@ -68,7 +67,11 @@ namespace Transmiter
 
                 var json = new Label();
                 json.AutoSize = true;
-                json.Text = "Type: " + item.Type + "\n" + "MinValue: " + item.MinValue + "\n" + "MaxValue: " + item.MaxValue + "\n" + "EncoderType: " + item.EncoderType + "\n" + "Frequency: " + item.Frequency;
+                json.Text = "Type: " + item.Type;
+                json.Text += "\n" + "MinValue: " + item.MinValue;
+                json.Text += "\n" + "MaxValue: " + item.MaxValue;
+                json.Text += "\n" + "EncoderType: " + item.EncoderType;
+                json.Text += "\n" + "Frequency: " + item.Frequency;
                 json.ForeColor = Color.Black;
                 mPage.Controls.Add(json);
                 tbdynamic.TabPages.Add(mPage);
