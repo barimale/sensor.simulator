@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Logic.Services
 {
-    public class PublishToChannelService
+    public class PublishToChannelService: IDisposable
     {
         private readonly string _hostName;
         private IModel _channel;
@@ -48,6 +48,12 @@ namespace Logic.Services
             {
                 return false;
             }
+        }
+
+        public void Dispose()
+        {
+            _connection.Dispose();
+            _channel.Dispose();
         }
     }
 }
