@@ -31,10 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="Data\receiverConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Data\sensorConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

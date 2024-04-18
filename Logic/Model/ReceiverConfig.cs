@@ -4,6 +4,6 @@
     {
         public int ID { get; set; }
         public bool IsActive { get; set; }
-        public int[] SensorIds { get; set; } 
+        public int SensorId { get; set; } 
     }
 }
