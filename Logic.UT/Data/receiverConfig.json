@@ -22,7 +22,7 @@
     },
     {
       "ID": 5,
-      "IsActive": "true",
+      "IsActive": "false",
       "SensorId": 4
     }
   ]
