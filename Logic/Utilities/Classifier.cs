@@ -1,4 +1,4 @@
-﻿namespace Logic
+﻿namespace Logic.Utilities
 {
     public static class Classifier
     {
@@ -7,7 +7,7 @@
             var randomizer = new Random();
             var result = randomizer.Next(0, 100);
 
-            switch(result)
+            switch (result)
             {
                 case < 10:
                     return Classification.Alarm;

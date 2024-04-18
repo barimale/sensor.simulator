@@ -1,4 +1,6 @@
-﻿namespace Logic.Model
+﻿using Logic.Utilities;
+
+namespace Logic.Model
 {
     public class SensorConfig
     {
