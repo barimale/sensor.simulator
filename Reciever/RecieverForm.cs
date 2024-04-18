@@ -1,6 +1,5 @@
 using Logic.Model;
 using Logic.Services;
-using Newtonsoft.Json;
 using RabbitMQ.Client.Events;
 using System.Text;
 
