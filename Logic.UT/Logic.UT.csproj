@@ -34,4 +34,10 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\sensorConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

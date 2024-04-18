@@ -1,3 +1,4 @@
+using Logic.Services;
 using Logic.UT.BaseUT;
 using Xunit.Abstractions;
 
@@ -24,6 +25,21 @@ namespace Logic.UT.As_a_developer
 
             // then
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void Read_config_file_and_map_to_class()
+        {
+            // given
+            var reader = new ConfigReader();
+            var path = ".//Data//sensorConfig.json";
+
+            // when
+            var result = reader.Read(path);
+
+            // then
+            Assert.NotNull(result);
+            Assert.Equal(3, result.Sensors.Count);
         }
     }
 }
