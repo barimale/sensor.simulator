@@ -21,7 +21,7 @@ namespace Logic.Services
 
             var factory = new ConnectionFactory { HostName = _hostName };
             using var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            _channel = connection.CreateModel();
 
             _channel.QueueDeclare(queue: _channelName,
                                  durable: false,
@@ -30,14 +30,14 @@ namespace Logic.Services
                                  arguments: null);
         }
 
-        public bool Send(string message, string channelName)
+        public bool Send(string message)
         {
             try
             {
                 var body = Encoding.UTF8.GetBytes(message);
 
                 _channel.BasicPublish(exchange: string.Empty,
-                                     routingKey: channelName,
+                                     routingKey: _channelName,
                                      basicProperties: null,
                                      body: body);
 

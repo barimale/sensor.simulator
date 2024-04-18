@@ -1,8 +1,8 @@
 ﻿namespace Logic
 {
-    public class Classifier
+    public static class Classifier
     {
-        public Classification Classify()
+        public static Classification Classify()
         {
             var randomizer = new Random();
             var result = randomizer.Next(0, 100);

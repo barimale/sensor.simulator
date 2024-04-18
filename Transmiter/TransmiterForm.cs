@@ -90,8 +90,8 @@ namespace Transmiter
             if (channel == null)
                 return;
 
-            MessageBox.Show("The form will now be closed.", "Time Elapsed");
-            this.Close();
+            var message = configuration.ToString();
+            channel.Send(message);
         }
 
         private void sTARTToolStripMenuItem_Click(object sender, EventArgs e)
