@@ -25,6 +25,8 @@ namespace Reciever
             // configuration
             ReadSensors();
             ReadReceivers();
+
+            // mappings
             MapReceiversToPages();
             MapReceiversToChannels();
             SubscribeChannels();

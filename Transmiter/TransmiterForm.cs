@@ -26,6 +26,7 @@ namespace Transmiter
             ReadSensors();
             ReadReceivers();
 
+            // mapping
             MapSensorsToPages();
             MapSensorsToSimulators();
             MapSensorsToChannels();
