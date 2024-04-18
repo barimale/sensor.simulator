@@ -83,7 +83,7 @@ namespace Transmiter
                 var path = "e://sensorConfig.json";
 
                 // when
-                this.sensors = reader.Read(path);
+                this.sensors = reader.ReadSensors(path);
             }
             catch (Exception)
             {

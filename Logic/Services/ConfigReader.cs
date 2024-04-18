@@ -5,7 +5,7 @@ namespace Logic.Services
 {
     public class ConfigReader
     {
-        public SensorConfigCollection? Read(string jsonFilePath)
+        public SensorConfigCollection? ReadSensors(string jsonFilePath)
         {
             try
             {
@@ -19,6 +19,20 @@ namespace Logic.Services
                 throw;
             }
         }
-       
+
+        public ReceiverConfigCollection? ReadReceivers(string jsonFilePath)
+        {
+            try
+            {
+                string json = File.ReadAllText(jsonFilePath);
+                var items = JsonConvert.DeserializeObject<ReceiverConfigCollection>(json);
+
+                return items;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

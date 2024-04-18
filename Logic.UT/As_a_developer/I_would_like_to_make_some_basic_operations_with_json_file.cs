@@ -27,18 +27,33 @@ namespace Logic.UT.As_a_developer
         }
 
         [Fact]
-        public void Read_config_file_and_map_to_class()
+        public void Read_sensors_config_file_and_map_to_class()
         {
             // given
             var reader = new ConfigReader();
             var path = ".//Data//sensorConfig.json";
 
             // when
-            var result = reader.Read(path);
+            var result = reader.ReadSensors(path);
 
             // then
             Assert.NotNull(result);
             Assert.Equal(3, result.Sensors.Count);
+        }
+
+        [Fact]
+        public void Read_receivers_config_file_and_map_to_class()
+        {
+            // given
+            var reader = new ConfigReader();
+            var path = ".//Data//receiverConfig.json";
+
+            // when
+            var result = reader.ReadReceivers(path);
+
+            // then
+            Assert.NotNull(result);
+            Assert.Equal(3, result.Receivers.Count);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Reciever
             {
                 var reader = new ConfigReader();
                 var path = "e://sensorConfig.json";
-                this.sensors = reader.Read(path);
+                this.sensors = reader.ReadSensors(path);
             }
             catch (Exception)
             {
