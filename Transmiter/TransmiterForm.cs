@@ -25,6 +25,7 @@ namespace Transmiter
             //configuration
             ReadSensors();
             ReadReceivers();
+
             MapSensorsToPages();
             MapSensorsToSimulators();
             MapSensorsToChannels();
@@ -34,7 +35,7 @@ namespace Transmiter
         {
             var localhost = "localhost";
             // sensors to channels
-            foreach (var item in receivers.Receivers)
+            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
                 var service = new PublishToChannelService(localhost);
                 service.CreateChannel(item.ToChannelName());
@@ -129,20 +130,23 @@ namespace Transmiter
 
             var tagID = (int)tag.Tag;
 
-            var configuration = sensors
-                .Sensors
-                .FirstOrDefault(p => p.ID == tagID);
+            var configuration = receivers
+                .Receivers
+                .FirstOrDefault(p => p.SensorId == tagID);
 
             if (configuration == null)
                 return;
 
             var channel = _channels
-                .FirstOrDefault(p => p.ChannelName == configuration.ID.ToString());
+                .FirstOrDefault(p => p.ChannelName == configuration.ToChannelName());
             
             if (channel == null)
                 return;
 
-            var message = configuration.ToString();
+            var message = sensors
+                .Sensors
+                .FirstOrDefault(p => p.ID == configuration.SensorId)
+                .ToString();
             channel.Send(message);
         }
 

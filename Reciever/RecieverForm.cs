@@ -95,7 +95,7 @@ namespace Reciever
         {
             var localhost = "localhost";
             // receivers to channels
-            foreach (var item in receivers.Receivers)
+            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
                 var service = new SubscribeToChannelService(localhost);
                 service.CreateChannel(item.ToChannelName());
