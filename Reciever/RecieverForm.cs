@@ -81,13 +81,13 @@ namespace Reciever
                         {
                             page.BackColor = result.FromClassificationToColor();
                             // apply backcolor
-
+                            //page.Text = result.Value.ToString();
                             // WIP apply value
                             var json = new Label();
                             json.AutoSize = true;
                             json.Text = JsonConvert.SerializeObject(result);
                             json.ForeColor = Color.Black;
-                            page.Controls.Clear();
+                            //page.Controls.Clear();
                             //page.Controls.Add(json);
                         }
                     }
