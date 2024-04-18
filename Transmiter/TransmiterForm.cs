@@ -68,7 +68,7 @@ namespace Transmiter
 
                 var json = new Label();
                 json.AutoSize = true;
-                json.Text = JsonConvert.SerializeObject(item);
+                json.Text = "Type: " + item.Type + "\n" + "MinValue: " + item.MinValue + "\n" + "MaxValue: " + item.MaxValue + "\n" + "EncoderType: " + item.EncoderType + "\n" + "Frequency: " + item.Frequency;
                 json.ForeColor = Color.Black;
                 mPage.Controls.Add(json);
                 tbdynamic.TabPages.Add(mPage);
