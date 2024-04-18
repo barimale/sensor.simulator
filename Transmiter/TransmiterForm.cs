@@ -1,9 +1,13 @@
+using Logic.Model;
 using Logic.Services;
+using Newtonsoft.Json;
 
 namespace Transmiter
 {
     public partial class TransmiterForm : Form
     {
+        private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
+        private SensorConfigCollection sensors;
         public TransmiterForm()
         {
             InitializeComponent();
@@ -14,27 +18,79 @@ namespace Transmiter
             this.Text = "Transmiter";
 
             TabControl tbdynamic = new TabControl();
+            tbdynamic.Top = 100;
             tbdynamic.Height = 200;
-            tbdynamic.Width = 200;
+            tbdynamic.Width = 800;
 
             // for each sensor in sensors
             var reader = new ConfigReader();
             var path = "e://sensorConfig.json";
 
             // when
-            var result = reader.Read(path);
-            foreach ( var item in result.Sensors)
+            this.sensors = reader.Read(path);
+
+            foreach (var item in sensors.Sensors)
             {
                 TabPage mPage = new TabPage();
-                mPage.Text = "ID: " + item.ID;
+                mPage.Text = "ID:" + item.ID;
+                mPage.BackColor = Color.White;
+
+                var json = new Label();
+                json.AutoSize = true;
+                json.Text = JsonConvert.SerializeObject(item);
+                json.ForeColor = Color.Black;
+                mPage.Controls.Add(json);
                 tbdynamic.TabPages.Add(mPage);
             }
-           
-           
+
             this.Controls.Add(tbdynamic);
             tbdynamic.BringToFront();
+
+            foreach (var item in sensors.Sensors)
+            {
+                var MyTimer = new System.Windows.Forms.Timer();
+                double number = 1000;
+                MyTimer.Interval = (int)(number / item.Frequency); // seconds
+                MyTimer.Tick += new EventHandler(MyTimer_Tick);
+                MyTimer.Tag = item.ID;
+                simulators.Add(MyTimer);
+
+            }
             // create tab in tabs
             // for each tab in tabs create channel rabbitmq
+        }
+
+        private void MyTimer_Tick(object sender, EventArgs e)
+        {
+            var tag = sender as System.Windows.Forms.Timer;
+            if (tag == null)
+                return;
+
+            var tagID = (int)tag.Tag;
+
+            var configuration = sensors
+                .Sensors
+                .FirstOrDefault(p => p.ID == tagID);
+
+            // rabbitMQ client service here
+            MessageBox.Show("The form will now be closed.", "Time Elapsed");
+            this.Close();
+        }
+
+        private void sTARTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var simulator in simulators)
+            {
+                simulator.Start();
+            }
+        }
+
+        private void sTOPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (var simulator in simulators)
+            {
+                simulator.Stop();
+            }
         }
     }
 }
