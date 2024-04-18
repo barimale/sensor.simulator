@@ -113,7 +113,7 @@ namespace Reciever
 
                     var json = new Label();
                     json.AutoSize = true;
-                    json.Text = JsonConvert.SerializeObject(result);
+                    json.Text = result.Value.ToString();
                     json.ForeColor = Color.Black;
                     try
                     {
