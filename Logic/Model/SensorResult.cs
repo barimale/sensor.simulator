@@ -24,7 +24,7 @@ namespace Logic.Model
             switch(Classification)
             {
                 case Classification.Normal:
-                    return Color.Green;
+                    return Color.White;
                 case Classification.Warning:
                     return Color.Yellow;
                 case Classification.Alarm:
