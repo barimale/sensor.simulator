@@ -28,8 +28,6 @@ namespace Reciever
             // for each sensor in sensors
             var reader = new ConfigReader();
             var path = "e://sensorConfig.json";
-
-            // when
             this.sensors = reader.Read(path);
 
             // sensors to tabPages
@@ -40,11 +38,11 @@ namespace Reciever
                 mPage.Tag = item.ID;
                 mPage.BackColor = Color.White;
 
-                var json = new Label();
-                json.AutoSize = true;
-                json.Text = JsonConvert.SerializeObject(item);
-                json.ForeColor = Color.Black;
-                mPage.Controls.Add(json);
+                //var json = new Label();
+                //json.AutoSize = true;
+                //json.Text = JsonConvert.SerializeObject(item);
+                //json.ForeColor = Color.Black;
+                //mPage.Controls.Add(json);
                 tbdynamic.TabPages.Add(mPage);
             }
 
@@ -80,15 +78,17 @@ namespace Reciever
                         if((int)page.Tag == sensor.ID)
                         {
                             page.BackColor = result.FromClassificationToColor();
-                            // apply backcolor
-                            //page.Text = result.Value.ToString();
-                            // WIP apply value
+
                             var json = new Label();
                             json.AutoSize = true;
                             json.Text = JsonConvert.SerializeObject(result);
                             json.ForeColor = Color.Black;
-                            //page.Controls.Clear();
-                            //page.Controls.Add(json);
+                            this.Invoke(
+                                new Action(() =>
+                                {
+                                    page.Controls.Clear();
+                                    page.Controls.Add(json);
+                                }));   
                         }
                     }
                     Console.WriteLine($" [x] Received {message}");
