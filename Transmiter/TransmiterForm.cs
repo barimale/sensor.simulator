@@ -6,7 +6,7 @@ namespace Transmiter
 {
     public partial class TransmiterForm : Form
     {
-        private List<ChannelService> _channels = new List<ChannelService>();
+        private List<PublishToChannelService> _channels = new List<PublishToChannelService>();
         private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
         private SensorConfigCollection sensors;
         public TransmiterForm()
@@ -63,7 +63,7 @@ namespace Transmiter
             // sensors to channels
             foreach (var item in sensors.Sensors)
             {
-                var service = new ChannelService(localhost);
+                var service = new PublishToChannelService(localhost);
                 service.CreateChannel(item.ID.ToString());
                 _channels.Add(service);
             }

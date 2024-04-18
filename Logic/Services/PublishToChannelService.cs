@@ -3,12 +3,13 @@ using System.Text;
 
 namespace Logic.Services
 {
-    public class ChannelService
+    public class PublishToChannelService
     {
         private readonly string _hostName;
         private IModel _channel;
+        private IConnection _connection;
         private string _channelName;
-        public ChannelService(string hostName)
+        public PublishToChannelService(string hostName)
         {
             _hostName = hostName;
         }
@@ -20,8 +21,8 @@ namespace Logic.Services
             _channelName = channelName;
 
             var factory = new ConnectionFactory { HostName = _hostName };
-            using var connection = factory.CreateConnection();
-            _channel = connection.CreateModel();
+            _connection = factory.CreateConnection();
+            _channel = _connection.CreateModel();
 
             _channel.QueueDeclare(queue: _channelName,
                                  durable: false,
