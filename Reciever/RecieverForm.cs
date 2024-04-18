@@ -9,6 +9,7 @@ namespace Reciever
     {
         private List<SubscribeToChannelService> _channels = new List<SubscribeToChannelService>();
         private SensorConfigCollection sensors;
+        private ReceiverConfigCollection receivers;
         private TabControl tbdynamic = new TabControl();
 
         public RecieverForm()
@@ -23,8 +24,9 @@ namespace Reciever
 
             // configuration
             ReadSensors();
-            MapSensorsToPages();
-            MapSensorsToChannels();
+            ReadReceivers();
+            MapReceiversToPages();
+            MapReceiversToChannels();
             SubscribeChannels();
         }
 
@@ -46,6 +48,20 @@ namespace Reciever
                 var reader = new ConfigReader();
                 var path = "e://sensorConfig.json";
                 this.sensors = reader.ReadSensors(path);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void ReadReceivers()
+        {
+            try
+            {
+                var reader = new ConfigReader();
+                var path = "e://receiverConfig.json";
+                this.receivers = reader.ReadReceivers(path);
             }
             catch (Exception)
             {
@@ -75,24 +91,24 @@ namespace Reciever
             }
         }
 
-        private void MapSensorsToChannels()
+        private void MapReceiversToChannels()
         {
             var localhost = "localhost";
-            // sensors to channels
-            foreach (var item in sensors.Sensors)
+            // receivers to channels
+            foreach (var item in receivers.Receivers)
             {
                 var service = new SubscribeToChannelService(localhost);
-                service.CreateChannel(item.ID.ToString());
+                service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }
         }
 
-        private void MapSensorsToPages()
+        private void MapReceiversToPages()
         {
-            foreach (var item in sensors.Sensors)
+            foreach (var item in receivers.Receivers)
             {
                 TabPage mPage = new TabPage();
-                mPage.Text = "ID:" + item.ID;
+                mPage.Text = item.ToChannelName();
                 mPage.Tag = item.ID;
                 mPage.BackColor = Color.White;
                 tbdynamic.TabPages.Add(mPage);

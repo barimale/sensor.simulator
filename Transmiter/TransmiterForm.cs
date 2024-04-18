@@ -9,6 +9,7 @@ namespace Transmiter
         private List<PublishToChannelService> _channels = new List<PublishToChannelService>();
         private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
         private SensorConfigCollection sensors;
+        private ReceiverConfigCollection receivers;
         private TabControl tbdynamic = new TabControl();
 
         public TransmiterForm()
@@ -23,6 +24,7 @@ namespace Transmiter
 
             //configuration
             ReadSensors();
+            ReadReceivers();
             MapSensorsToPages();
             MapSensorsToSimulators();
             MapSensorsToChannels();
@@ -32,10 +34,10 @@ namespace Transmiter
         {
             var localhost = "localhost";
             // sensors to channels
-            foreach (var item in sensors.Sensors)
+            foreach (var item in receivers.Receivers)
             {
                 var service = new PublishToChannelService(localhost);
-                service.CreateChannel(item.ID.ToString());
+                service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }
         }
@@ -84,6 +86,23 @@ namespace Transmiter
 
                 // when
                 this.sensors = reader.ReadSensors(path);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void ReadReceivers()
+        {
+            try
+            {
+                // for each sensor in sensors
+                var reader = new ConfigReader();
+                var path = "e://receiverConfig.json";
+
+                // when
+                this.receivers = reader.ReadReceivers(path);
             }
             catch (Exception)
             {
