@@ -9,6 +9,8 @@ namespace Transmiter
         private List<PublishToChannelService> _channels = new List<PublishToChannelService>();
         private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
         private SensorConfigCollection sensors;
+        private TabControl tbdynamic = new TabControl();
+
         public TransmiterForm()
         {
             InitializeComponent();
@@ -16,21 +18,44 @@ namespace Transmiter
 
         private void TransmiterForm_Load(object sender, EventArgs e)
         {
-            this.Text = "Transmiter";
+            //preconfiguration
+            Preconfigure();
 
-            TabControl tbdynamic = new TabControl();
-            tbdynamic.Top = 100;
-            tbdynamic.Height = 200;
-            tbdynamic.Width = 800;
+            //configuration
+            ReadSensors();
+            MapSensorsToPages();
+            MapSensorsToSimulators();
+            MapSensorsToChannels();
+        }
 
-            // for each sensor in sensors
-            var reader = new ConfigReader();
-            var path = "e://sensorConfig.json";
+        private void MapSensorsToChannels()
+        {
+            var localhost = "localhost";
+            // sensors to channels
+            foreach (var item in sensors.Sensors)
+            {
+                var service = new PublishToChannelService(localhost);
+                service.CreateChannel(item.ID.ToString());
+                _channels.Add(service);
+            }
+        }
 
-            // when
-            this.sensors = reader.Read(path);
+        private void MapSensorsToSimulators()
+        {
+            // sensors to simulators
+            foreach (var item in sensors.Sensors)
+            {
+                var simulator = new System.Windows.Forms.Timer();
+                double number = 1000;
+                simulator.Interval = (int)(number / item.Frequency); // seconds
+                simulator.Tick += new EventHandler(Simulator_Tick);
+                simulator.Tag = item.ID;
+                simulators.Add(simulator);
+            }
+        }
 
-            // sensors to tabPages
+        private void MapSensorsToPages()
+        {
             foreach (var item in sensors.Sensors)
             {
                 TabPage mPage = new TabPage();
@@ -47,26 +72,34 @@ namespace Transmiter
 
             this.Controls.Add(tbdynamic);
             tbdynamic.BringToFront();
+        }
 
-            // sensors to simulators
-            foreach (var item in sensors.Sensors)
+        private void ReadSensors()
+        {
+            try
             {
-                var simulator = new System.Windows.Forms.Timer();
-                double number = 1000;
-                simulator.Interval = (int)(number / item.Frequency); // seconds
-                simulator.Tick += new EventHandler(Simulator_Tick);
-                simulator.Tag = item.ID;
-                simulators.Add(simulator);
-            }
+                // for each sensor in sensors
+                var reader = new ConfigReader();
+                var path = "e://sensorConfig.json";
 
-            var localhost = "localhost";
-            // sensors to channels
-            foreach (var item in sensors.Sensors)
-            {
-                var service = new PublishToChannelService(localhost);
-                service.CreateChannel(item.ID.ToString());
-                _channels.Add(service);
+                // when
+                this.sensors = reader.Read(path);
             }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void Preconfigure()
+        {
+            this.Text = "Transmiter";
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            tbdynamic.Top = 30;
+            tbdynamic.Height = this.Height - 30;
+            tbdynamic.Width = this.Width;
         }
 
         private void Simulator_Tick(object sender, EventArgs e)

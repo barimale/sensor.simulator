@@ -18,11 +18,9 @@ namespace Logic.UT.As_a_developer
         public void Obtain_classification()
         {
             // given
-            var classifier = new Classifier();
-            var path = ".//Data//sensorConfig.json";
 
             // when
-            var result = classifier.Classify();
+            var result = Classifier.Classify();
 
             // then
             Assert.NotNull(result);
