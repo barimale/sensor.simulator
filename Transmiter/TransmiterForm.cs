@@ -131,6 +131,7 @@ namespace Transmiter
 
             var configurations = receivers
                 .Receivers
+                .Where(p => p.IsActive)
                 .Where(p => p.SensorId == tagID)
                 .ToList();
 
