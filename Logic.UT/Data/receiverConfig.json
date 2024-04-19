@@ -17,12 +17,12 @@
     },
     {
       "ID": 4,
-      "IsActive": "true",
+      "IsActive": "false",
       "SensorId": 4
     },
     {
       "ID": 5,
-      "IsActive": "false",
+      "IsActive": "true",
       "SensorId": 4
     }
   ]

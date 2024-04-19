@@ -23,6 +23,14 @@
       "MaxValue": 255,
       "EncoderType": "fixed",
       "Frequency": 10 //Hz
+    },
+    {
+      "ID": 4,
+      "Type": "depth",
+      "MinValue": 0,
+      "MaxValue": 255,
+      "EncoderType": "fixed",
+      "Frequency": 20 //Hz
     }
   ]
 }

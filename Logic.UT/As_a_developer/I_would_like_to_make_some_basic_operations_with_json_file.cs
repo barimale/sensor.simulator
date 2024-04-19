@@ -53,7 +53,7 @@ namespace Logic.UT.As_a_developer
 
             // then
             Assert.NotNull(result);
-            Assert.Equal(3, result.Receivers.Count);
+            Assert.Equal(5, result.Receivers.Count);
         }
     }
 }
