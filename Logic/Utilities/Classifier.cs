@@ -17,6 +17,8 @@
                     return Classification.Normal;
                 case < 90:
                     return Classification.Warning;
+                case < 100:
+                    return Classification.Alarm;
                 default:
                     return Classification.Alarm;
             }

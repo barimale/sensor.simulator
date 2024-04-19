@@ -7,25 +7,20 @@ namespace Logic.Services
     {
         public SensorConfigCollection? ReadSensors(string jsonFilePath)
         {
-            try
-            {
-                string json = File.ReadAllText(jsonFilePath);
-                var items = JsonConvert.DeserializeObject<SensorConfigCollection>(json);
-
-                return items;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return Read<SensorConfigCollection>(jsonFilePath);
         }
 
         public ReceiverConfigCollection? ReadReceivers(string jsonFilePath)
         {
+            return Read<ReceiverConfigCollection>(jsonFilePath);
+        }
+
+        private T? Read<T>(string jsonFilePath)
+        {
             try
             {
                 string json = File.ReadAllText(jsonFilePath);
-                var items = JsonConvert.DeserializeObject<ReceiverConfigCollection>(json);
+                var items = JsonConvert.DeserializeObject<T>(json);
 
                 return items;
             }

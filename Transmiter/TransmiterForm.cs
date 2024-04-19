@@ -62,12 +62,13 @@ namespace Transmiter
             foreach (var item in sensors.Sensors)
             {
                 TabPage mPage = new TabPage();
-                mPage.Text = "ID:" + item.ID;
+                mPage.Text = item.ID.ToString();
                 mPage.BackColor = Color.White;
 
                 var json = new Label();
                 json.AutoSize = true;
-                json.Text = "Type: " + item.Type;
+                json.Text = "ID: " + item.ID;
+                json.Text += "\n" + "Type: " + item.Type;
                 json.Text += "\n" + "MinValue: " + item.MinValue;
                 json.Text += "\n" + "MaxValue: " + item.MaxValue;
                 json.Text += "\n" + "EncoderType: " + item.EncoderType;
@@ -138,8 +139,6 @@ namespace Transmiter
                 .Receivers
                 .Where(p => p.SensorId == tagID)
                 .ToList();
-
-            var cpunt = configurations.Count;
 
             foreach(var configuration in configurations)
             {

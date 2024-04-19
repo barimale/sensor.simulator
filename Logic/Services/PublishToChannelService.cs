@@ -9,6 +9,7 @@ namespace Logic.Services
         private IModel _channel;
         private IConnection _connection;
         private string _channelName;
+
         public PublishToChannelService(string hostName)
         {
             _hostName = hostName;
