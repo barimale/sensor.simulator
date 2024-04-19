@@ -86,11 +86,8 @@ namespace Transmiter
         {
             try
             {
-                // for each sensor in sensors
                 var reader = new ConfigReader();
                 var path = "e://sensorConfig.json";
-
-                // when
                 this.sensors = reader.ReadSensors(path);
             }
             catch (Exception)
@@ -103,11 +100,8 @@ namespace Transmiter
         {
             try
             {
-                // for each sensor in sensors
                 var reader = new ConfigReader();
                 var path = "e://receiverConfig.json";
-
-                // when
                 this.receivers = reader.ReadReceivers(path);
             }
             catch (Exception)

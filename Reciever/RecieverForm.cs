@@ -76,7 +76,6 @@ namespace Reciever
             // subscribe to channels
             foreach (var channel in _channels)
             {
-                // get channel 
                 var consumer = new EventingBasicConsumer(channel.Channel);
                 consumer.Received += (model, ea) =>
                 {
@@ -95,11 +94,11 @@ namespace Reciever
 
         private void MapReceiversToChannels()
         {
-            var localhost = "localhost";
+            var hostName = "localhost";
             // receivers to channels
             foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
-                var service = new SubscribeToChannelService(localhost);
+                var service = new SubscribeToChannelService(hostName);
                 service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }
@@ -111,7 +110,7 @@ namespace Reciever
             {
                 TabPage mPage = new TabPage();
                 mPage.Text = item.ToChannelName();
-                mPage.Tag = item.SensorId; // WIP ID
+                mPage.Tag = item.SensorId;
                 mPage.BackColor = Color.White;
                 tbdynamic.TabPages.Add(mPage);
             }
