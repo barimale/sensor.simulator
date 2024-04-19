@@ -12,12 +12,12 @@
     },
     {
       "ID": 3,
-      "IsActive": "false",
+      "IsActive": "true",
       "SensorId": 2
     },
     {
       "ID": 4,
-      "IsActive": "false",
+      "IsActive": "true",
       "SensorId": 4
     },
     {
