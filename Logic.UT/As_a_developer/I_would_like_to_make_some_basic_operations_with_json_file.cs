@@ -20,7 +20,7 @@ namespace Logic.UT.As_a_developer
             // given
 
             // when
-            var result = Classifier.Classify();
+            var result = ClassifierUtilitycs.ClassifySignal();
 
             // then
             Assert.NotNull(result);
