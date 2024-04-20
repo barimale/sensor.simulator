@@ -3,9 +3,8 @@
 docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.13-management
 ```
 # Config files - initial localization
-They are copied to e:// - . There is one place containing 
+There is one place containing 
 config files for both startup projects.
-Please modify in code in case You do not have e partition.
 Path to them is pass as a param.
 
 # Multiple startup projects
