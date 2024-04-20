@@ -1,5 +1,5 @@
+using Logic.Managers;
 using Logic.Model;
-using Logic.Services;
 using RabbitMQ.Client.Events;
 using System.Text;
 
@@ -7,9 +7,7 @@ namespace Reciever
 {
     public partial class RecieverForm : Form
     {
-        private List<SubscribeToChannelService> _channels = new List<SubscribeToChannelService>();
-        private SensorConfigCollection sensors;
-        private ReceiverConfigCollection receivers;
+        private ConsumeManager _consumeManager;
         private TabControl tbdynamic = new TabControl();
 
         public RecieverForm()
@@ -26,13 +24,13 @@ namespace Reciever
             // preconfiguration
             Preconfigure();
 
-            // configuration
-            ReadSensors();
-            ReadReceivers();
+            _consumeManager = new ConsumeManager(
+                this.ReceiverConfigPath,
+                this.SensorConfigPath,
+                this.RabbitHostName);
 
             // mappings
             MapReceiversToPages();
-            MapReceiversToChannels();
             SubscribeChannels();
         }
 
@@ -47,36 +45,10 @@ namespace Reciever
             tbdynamic.Width = this.Width;
         }
 
-        private void ReadSensors()
-        {
-            try
-            {
-                var reader = new ConfigReader();
-                this.sensors = reader.ReadSensors(this.SensorConfigPath);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private void ReadReceivers()
-        {
-            try
-            {
-                var reader = new ConfigReader();
-                this.receivers = reader.ReadReceivers(this.ReceiverConfigPath);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         private void SubscribeChannels()
         {
             // subscribe to channels
-            foreach (var channel in _channels)
+            foreach (var channel in _consumeManager.Channels)
             {
                 var consumer = new EventingBasicConsumer(channel.Channel);
                 consumer.Received += (model, ea) =>
@@ -85,7 +57,7 @@ namespace Reciever
                     var message = Encoding.UTF8.GetString(body);
 
                     var result = new SensorResult(message);
-                    var sensor = sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
+                    var sensor = _consumeManager.Sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
                     
                     ApplyChanges(result, sensor);
                 };
@@ -94,20 +66,10 @@ namespace Reciever
             }
         }
 
-        private void MapReceiversToChannels()
-        {
-            // receivers to channels
-            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
-            {
-                var service = new SubscribeToChannelService(this.RabbitHostName);
-                service.CreateChannel(item.ToChannelName());
-                _channels.Add(service);
-            }
-        }
 
         private void MapReceiversToPages()
         {
-            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
+            foreach (var item in _consumeManager.Receivers.Receivers.Where(p => p.IsActive))
             {
                 TabPage mPage = new TabPage();
                 mPage.Text = item.ToChannelName();

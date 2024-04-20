@@ -1,14 +1,10 @@
-using Logic.Model;
-using Logic.Services;
+using Logic.Managers;
 
 namespace Transmiter
 {
     public partial class TransmiterForm : Form
     {
-        private List<PublishToChannelService> _channels = new List<PublishToChannelService>();
-        private List<System.Windows.Forms.Timer> simulators = new List<System.Windows.Forms.Timer>();
-        private SensorConfigCollection sensors;
-        private ReceiverConfigCollection receivers;
+        private TransmitManager _transmitManager;
         private TabControl tbdynamic = new TabControl();
 
         public TransmiterForm()
@@ -26,43 +22,18 @@ namespace Transmiter
             Preconfigure();
 
             //configuration
-            ReadSensors();
-            ReadReceivers();
+            _transmitManager = new TransmitManager(
+                this.ReceiverConfigPath,
+                this.SensorConfigPath,
+                this.RabbitHostName);
 
-            // mapping
             MapSensorsToPages();
-            MapSensorsToSimulators();
-            MapSensorsToChannels();
         }
 
-        private void MapSensorsToChannels()
-        {
-            // sensors to channels
-            foreach (var item in receivers.Receivers.Where(p => p.IsActive))
-            {
-                var service = new PublishToChannelService(this.RabbitHostName);
-                service.CreateChannel(item.ToChannelName());
-                _channels.Add(service);
-            }
-        }
-
-        private void MapSensorsToSimulators()
-        {
-            // sensors to simulators
-            foreach (var item in sensors.Sensors)
-            {
-                var simulator = new System.Windows.Forms.Timer();
-                double secondInMilliseconds = 1000;
-                simulator.Interval = (int)(secondInMilliseconds / item.Frequency); // seconds
-                simulator.Tick += new EventHandler(Simulator_Tick);
-                simulator.Tag = item.ID;
-                simulators.Add(simulator);
-            }
-        }
-
+       
         private void MapSensorsToPages()
         {
-            foreach (var item in sensors.Sensors)
+            foreach (var item in _transmitManager.Sensors.Sensors)
             {
                 TabPage mPage = new TabPage();
                 mPage.Text = item.ID.ToString();
@@ -85,32 +56,6 @@ namespace Transmiter
             tbdynamic.BringToFront();
         }
 
-        private void ReadSensors()
-        {
-            try
-            {
-                var reader = new ConfigReader();
-                this.sensors = reader.ReadSensors(this.SensorConfigPath);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        private void ReadReceivers()
-        {
-            try
-            {
-                var reader = new ConfigReader();
-                this.receivers = reader.ReadReceivers(this.ReceiverConfigPath);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         private void Preconfigure()
         {
             this.Text = "Transmiter";
@@ -122,43 +67,9 @@ namespace Transmiter
             tbdynamic.Width = this.Width;
         }
 
-        private void Simulator_Tick(object sender, EventArgs e)
-        {
-            var tag = sender as System.Windows.Forms.Timer;
-            if (tag == null)
-                return;
-
-            var tagID = (int)tag.Tag;
-
-            var configurations = receivers
-                .Receivers
-                .Where(p => p.IsActive)
-                .Where(p => p.SensorId == tagID)
-                .ToList();
-
-            foreach(var configuration in configurations)
-            {
-                if (configuration == null)
-                    return;
-
-                var channel = _channels
-                    .FirstOrDefault(p => p.ChannelName == configuration.ToChannelName());
-            
-                if (channel == null)
-                    return;
-
-                var message = sensors
-                    .Sensors
-                    .FirstOrDefault(p => p.ID == configuration.SensorId)
-                    .ToString();
-
-                channel.Send(message);
-            }
-        }
-
         private void sTARTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var simulator in simulators)
+            foreach (var simulator in _transmitManager.Simulators)
             {
                 simulator.Start();
             }
@@ -166,7 +77,7 @@ namespace Transmiter
 
         private void sTOPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (var simulator in simulators)
+            foreach (var simulator in _transmitManager.Simulators)
             {
                 simulator.Stop();
             }
