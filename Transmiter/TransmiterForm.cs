@@ -52,8 +52,8 @@ namespace Transmiter
             foreach (var item in sensors.Sensors)
             {
                 var simulator = new System.Windows.Forms.Timer();
-                double number = 1000;
-                simulator.Interval = (int)(number / item.Frequency); // seconds
+                double secondInMilliseconds = 1000;
+                simulator.Interval = (int)(secondInMilliseconds / item.Frequency); // seconds
                 simulator.Tick += new EventHandler(Simulator_Tick);
                 simulator.Tag = item.ID;
                 simulators.Add(simulator);
