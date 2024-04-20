@@ -84,6 +84,9 @@ namespace Reciever
 
         private void ApplyChanges(SensorResult result, SensorConfig? sensor)
         {
+            if (result == null)
+                return;
+
             foreach (Control page in tbdynamic.TabPages)
             {
                 if ((int)page.Tag == sensor.ID)

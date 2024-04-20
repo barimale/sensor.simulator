@@ -27,7 +27,7 @@
 
     public enum Classification
     {
-        Alarm,
+        Alarm = 0,
         Warning,
         Normal
     }
