@@ -84,7 +84,7 @@ namespace Reciever
 
         private void ApplyChanges(SensorResult result, SensorConfig? sensor)
         {
-            if (result == null)
+            if (result == null || result.Classification == null)
                 return;
 
             foreach (Control page in tbdynamic.TabPages)
