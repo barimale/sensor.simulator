@@ -16,6 +16,10 @@ namespace Transmiter
             InitializeComponent();
         }
 
+        public string RabbitHostName { get; set; }
+        public string SensorConfigPath { get; set; }
+        public string ReceiverConfigPath { get; set; }
+
         private void TransmiterForm_Load(object sender, EventArgs e)
         {
             //preconfiguration
@@ -33,11 +37,10 @@ namespace Transmiter
 
         private void MapSensorsToChannels()
         {
-            var hostName = "localhost";
             // sensors to channels
             foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
-                var service = new PublishToChannelService(hostName);
+                var service = new PublishToChannelService(this.RabbitHostName);
                 service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }
@@ -87,8 +90,7 @@ namespace Transmiter
             try
             {
                 var reader = new ConfigReader();
-                var path = "e://sensorConfig.json";
-                this.sensors = reader.ReadSensors(path);
+                this.sensors = reader.ReadSensors(this.SensorConfigPath);
             }
             catch (Exception)
             {
@@ -101,8 +103,7 @@ namespace Transmiter
             try
             {
                 var reader = new ConfigReader();
-                var path = "e://receiverConfig.json";
-                this.receivers = reader.ReadReceivers(path);
+                this.receivers = reader.ReadReceivers(this.ReceiverConfigPath);
             }
             catch (Exception)
             {

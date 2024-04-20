@@ -17,6 +17,10 @@ namespace Reciever
             InitializeComponent();
         }
 
+        public string RabbitHostName { get; set; }
+        public string SensorConfigPath { get; set; }
+        public string ReceiverConfigPath { get; set; }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // preconfiguration
@@ -48,8 +52,7 @@ namespace Reciever
             try
             {
                 var reader = new ConfigReader();
-                var path = "e://sensorConfig.json";
-                this.sensors = reader.ReadSensors(path);
+                this.sensors = reader.ReadSensors(this.SensorConfigPath);
             }
             catch (Exception)
             {
@@ -62,8 +65,7 @@ namespace Reciever
             try
             {
                 var reader = new ConfigReader();
-                var path = "e://receiverConfig.json";
-                this.receivers = reader.ReadReceivers(path);
+                this.receivers = reader.ReadReceivers(this.ReceiverConfigPath);
             }
             catch (Exception)
             {
@@ -94,11 +96,10 @@ namespace Reciever
 
         private void MapReceiversToChannels()
         {
-            var hostName = "localhost";
             // receivers to channels
             foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
-                var service = new SubscribeToChannelService(hostName);
+                var service = new SubscribeToChannelService(this.RabbitHostName);
                 service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }

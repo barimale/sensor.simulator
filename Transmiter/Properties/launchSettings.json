@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Transmiter": {
+      "commandName": "Project",
+      "commandLineArgs": "localhost   \"e://receiverConfig.json\" \"e://sensorConfig.json\"\r\n"
+    }
+  }
+}

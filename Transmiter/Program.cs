@@ -6,10 +6,20 @@ namespace Transmiter
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new TransmiterForm());
+
+            var form = new TransmiterForm();
+
+            if (args.Length == 3)
+            {
+                form.RabbitHostName = args[0];
+                form.ReceiverConfigPath = args[1];
+                form.SensorConfigPath = args[2];
+            }
+
+            Application.Run(form);
         }
     }
 }
