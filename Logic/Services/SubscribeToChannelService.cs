@@ -50,6 +50,8 @@ namespace Logic.Services
 
         public void Dispose()
         {
+            _channel.Close();
+            _connection.Close();
             _connection.Dispose();
             _channel.Dispose();
         }
