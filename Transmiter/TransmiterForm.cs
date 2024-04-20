@@ -33,11 +33,11 @@ namespace Transmiter
 
         private void MapSensorsToChannels()
         {
-            var localhost = "localhost";
+            var hostName = "localhost";
             // sensors to channels
             foreach (var item in receivers.Receivers.Where(p => p.IsActive))
             {
-                var service = new PublishToChannelService(localhost);
+                var service = new PublishToChannelService(hostName);
                 service.CreateChannel(item.ToChannelName());
                 _channels.Add(service);
             }
