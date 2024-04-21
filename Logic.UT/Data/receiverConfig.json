@@ -24,6 +24,16 @@
       "ID": 5,
       "IsActive": "true",
       "SensorId": 4
+    },
+    {
+      "ID": 6,
+      "IsActive": "true",
+      "SensorId": 5
+    },
+    {
+      "ID": 7,
+      "IsActive": "true",
+      "SensorId": 6
     }
   ]
 }
