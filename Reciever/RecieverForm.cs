@@ -8,7 +8,7 @@ namespace Reciever
     public partial class RecieverForm : Form
     {
         private ConsumeManager _consumeManager;
-        private TabControl tbdynamic = new TabControl();
+        private FlowLayoutPanel tbdynamic = new FlowLayoutPanel();
 
         public RecieverForm()
         {
@@ -37,12 +37,11 @@ namespace Reciever
         private void Preconfigure()
         {
             this.Text = "Reciever";
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             tbdynamic.Top = 0;
             tbdynamic.Height = this.Height;
             tbdynamic.Width = this.Width;
+            tbdynamic.FlowDirection = FlowDirection.LeftToRight;
+            tbdynamic.Margin = new Padding(50);
         }
 
         private void SubscribeChannels()
@@ -58,7 +57,7 @@ namespace Reciever
 
                     var result = new SensorResult(message);
                     var sensor = _consumeManager.Sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
-                    
+
                     ApplyChangesToUI(result, sensor);
                 };
 
@@ -70,11 +69,15 @@ namespace Reciever
         {
             foreach (var item in _consumeManager.Receivers.Receivers.Where(p => p.IsActive))
             {
-                TabPage mPage = new TabPage();
+                Label mPage = new Label();
                 mPage.Text = item.ToChannelName();
                 mPage.Tag = item.SensorId;
                 mPage.BackColor = Color.White;
-                tbdynamic.TabPages.Add(mPage);
+                mPage.Height *= 4;
+                mPage.Width *= 3;
+                mPage.Margin = new Padding(30);
+
+                tbdynamic.Controls.Add(mPage);
             }
 
             this.Controls.Add(tbdynamic);
@@ -86,7 +89,7 @@ namespace Reciever
             if (result == null || result.Classification == null)
                 return;
 
-            foreach (Control page in tbdynamic.TabPages)
+            foreach (Control page in tbdynamic.Controls)
             {
                 if ((int)page.Tag == sensor.ID)
                 {
@@ -94,7 +97,8 @@ namespace Reciever
 
                     var json = new Label();
                     json.AutoSize = true;
-                    json.Text = result.Value.ToString();
+                    json.Text = "ID:" + result.ID.ToString();
+                    json.Text += "\n" + result.Value.ToString();
                     json.ForeColor = Color.Black;
                     json.Font = new Font("Arial", 24, FontStyle.Bold);
 
