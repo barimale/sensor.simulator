@@ -59,13 +59,12 @@ namespace Reciever
                     var result = new SensorResult(message);
                     var sensor = _consumeManager.Sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
                     
-                    ApplyChanges(result, sensor);
+                    ApplyChangesToUI(result, sensor);
                 };
 
                 channel.Consume(consumer);
             }
         }
-
 
         private void MapReceiversToPages()
         {
@@ -82,7 +81,7 @@ namespace Reciever
             tbdynamic.BringToFront();
         }
 
-        private void ApplyChanges(SensorResult result, SensorConfig? sensor)
+        private void ApplyChangesToUI(SensorResult result, SensorConfig? sensor)
         {
             if (result == null || result.Classification == null)
                 return;
@@ -97,6 +96,8 @@ namespace Reciever
                     json.AutoSize = true;
                     json.Text = result.Value.ToString();
                     json.ForeColor = Color.Black;
+                    json.Font = new Font("Arial", 24, FontStyle.Bold);
+
                     try
                     {
                         this.Invoke(
