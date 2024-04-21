@@ -42,6 +42,7 @@ namespace Reciever
             tbdynamic.Width = this.Width;
             tbdynamic.FlowDirection = FlowDirection.LeftToRight;
             tbdynamic.Margin = new Padding(50);
+            tbdynamic.Dock = DockStyle.Fill;
         }
 
         private void SubscribeChannels()
@@ -94,11 +95,10 @@ namespace Reciever
                 if ((int)page.Tag == sensor.ID)
                 {
                     page.BackColor = result.FromClassificationToColor();
-
+                    
                     var json = new Label();
                     json.AutoSize = true;
-                    json.Text = "ID.SensorId:" + page.Tag.ToString();
-                    json.Text += "\n" + result.Value.ToString();
+                    json.Text = result.Value.ToString();
                     json.ForeColor = Color.Black;
                     json.Font = new Font("Arial", 24, FontStyle.Bold);
 
