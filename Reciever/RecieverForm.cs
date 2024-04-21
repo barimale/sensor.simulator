@@ -97,7 +97,7 @@ namespace Reciever
 
                     var json = new Label();
                     json.AutoSize = true;
-                    json.Text = "ID:" + result.ID.ToString();
+                    json.Text = "ID.SensorId:" + page.Tag.ToString();
                     json.Text += "\n" + result.Value.ToString();
                     json.ForeColor = Color.Black;
                     json.Font = new Font("Arial", 24, FontStyle.Bold);
