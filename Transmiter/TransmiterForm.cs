@@ -47,6 +47,7 @@ namespace Transmiter
                 json.Text += "\n" + "MaxValue: " + item.MaxValue;
                 json.Text += "\n" + "EncoderType: " + item.EncoderType;
                 json.Text += "\n" + "Frequency: " + item.Frequency;
+                json.Font = new Font("Arial", 14, FontStyle.Regular);
                 json.ForeColor = Color.Black;
                 mPage.Controls.Add(json);
                 tbdynamic.TabPages.Add(mPage);
