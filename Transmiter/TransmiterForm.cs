@@ -41,12 +41,7 @@ namespace Transmiter
 
                 var json = new Label();
                 json.AutoSize = true;
-                json.Text = "ID: " + item.ID;
-                json.Text += "\n" + "Type: " + item.Type;
-                json.Text += "\n" + "MinValue: " + item.MinValue;
-                json.Text += "\n" + "MaxValue: " + item.MaxValue;
-                json.Text += "\n" + "EncoderType: " + item.EncoderType;
-                json.Text += "\n" + "Frequency: " + item.Frequency;
+                json.Text = item.ToMultilineText();
                 json.Font = new Font("Arial", 14, FontStyle.Regular);
                 json.ForeColor = Color.Black;
                 mPage.Controls.Add(json);

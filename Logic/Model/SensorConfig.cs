@@ -1,4 +1,7 @@
 ﻿using Logic.Utilities;
+using static System.Net.Mime.MediaTypeNames;
+using System.Drawing;
+using System.Reflection.Emit;
 
 namespace Logic.Model
 {
@@ -11,7 +14,7 @@ namespace Logic.Model
         public string EncoderType { get; set; }
         public int Frequency { get; set; }
 
-        public string ToString()
+        public string ToTelegram()
         {
             var randomizer = new Random();
             var value = randomizer.Next(MinValue, MaxValue);
@@ -19,6 +22,18 @@ namespace Logic.Model
             var result = "$FIX," + this.ID.ToString() + "," + Type + "," + value + "," + ClassifierUtilitycs.ClassifySignal();
 
             return result;
+        }
+
+        public string ToMultilineText()
+        {
+            var labelText = "ID: " + this.ID;
+            labelText += "\n" + "Type: " + this.Type;
+            labelText += "\n" + "MinValue: " + this.MinValue;
+            labelText += "\n" + "MaxValue: " + this.MaxValue;
+            labelText += "\n" + "EncoderType: " + this.EncoderType;
+            labelText += "\n" + "Frequency: " + this.Frequency;
+
+            return labelText;
         }
     }
 }

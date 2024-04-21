@@ -81,7 +81,7 @@ namespace Logic.Managers
                 var message = sensors
                     .Sensors
                     .FirstOrDefault(p => p.ID == configuration.SensorId)
-                    .ToString();
+                    .ToTelegram();
 
                 channel.Send(message);
             }
