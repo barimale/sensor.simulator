@@ -43,6 +43,9 @@ namespace Reciever
             tbdynamic.FlowDirection = FlowDirection.LeftToRight;
             tbdynamic.Margin = new Padding(50);
             tbdynamic.Dock = DockStyle.Fill;
+            tbdynamic.AutoScroll = true;
+            tbdynamic.WrapContents = true;
+            tbdynamic.MinimumSize = this.Height;
         }
 
         private void SubscribeChannels()
