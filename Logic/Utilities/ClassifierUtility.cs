@@ -1,6 +1,6 @@
 ﻿namespace Logic.Utilities
 {
-    public static class ClassifierUtilitycs
+    public static class ClassifierUtility
     {
         public static Classification ClassifySignal()
         {

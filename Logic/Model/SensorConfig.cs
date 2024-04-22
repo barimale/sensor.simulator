@@ -19,7 +19,7 @@ namespace Logic.Model
             var randomizer = new Random();
             var value = randomizer.Next(MinValue, MaxValue);
 
-            var result = "$FIX," + this.ID.ToString() + "," + Type + "," + value + "," + ClassifierUtilitycs.ClassifySignal();
+            var result = "$FIX," + this.ID.ToString() + "," + Type + "," + value + "," + ClassifierUtility.ClassifySignal();
 
             return result;
         }
