@@ -45,7 +45,6 @@ namespace Reciever
             tbdynamic.Dock = DockStyle.Fill;
             tbdynamic.AutoScroll = true;
             tbdynamic.WrapContents = true;
-            tbdynamic.MinimumSize = this.Height;
         }
 
         private void SubscribeChannels()
