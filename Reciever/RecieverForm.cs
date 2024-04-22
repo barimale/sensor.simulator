@@ -70,15 +70,21 @@ namespace Reciever
         {
             foreach (var item in _consumeManager.Receivers.Receivers.Where(p => p.IsActive))
             {
+                GroupBox gb = new GroupBox();
+                gb.Text = item.ToChannelName();
+                gb.Tag = item.ToChannelName();
+                gb.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
                 Label mPage = new Label();
-                mPage.Text = item.ToChannelName();
                 mPage.Tag = item.SensorId;
-                mPage.BackColor = Color.White;
+                mPage.BackColor = Color.Transparent;
                 mPage.Height *= 4;
                 mPage.Width *= 3;
-                mPage.Margin = new Padding(30);
+                mPage.Padding = new Padding(30);
+                mPage.Dock = DockStyle.Fill;
+                gb.Controls.Add(mPage);
 
-                tbdynamic.Controls.Add(mPage);
+                tbdynamic.Controls.Add(gb);
             }
 
             this.Controls.Add(tbdynamic);
@@ -92,28 +98,32 @@ namespace Reciever
 
             foreach (Control page in tbdynamic.Controls)
             {
-                if ((int)page.Tag == sensor.ID)
+                foreach (Control control in page.Controls)
                 {
-                    page.BackColor = result.FromClassificationToColor();
-                    
-                    var json = new Label();
-                    json.AutoSize = true;
-                    json.Text = result.Value.ToString();
-                    json.ForeColor = Color.Black;
-                    json.Font = new Font("Arial", 24, FontStyle.Bold);
+                    if ((int)control.Tag == sensor.ID)
+                    {
 
-                    try
-                    {
-                        this.Invoke(
-                          new Action(() =>
-                          {
-                              page.Controls.Clear();
-                              page.Controls.Add(json);
-                          }));
-                    }
-                    catch (Exception)
-                    {
-                        // intentionally left blank
+                        try
+                        {
+                            this.Invoke(
+                              new Action(() =>
+                              {
+                                  control.BackColor = result.FromClassificationToColor();
+
+                                  var json = new Label();
+                                  json.AutoSize = true;
+                                  json.Text = result.Value.ToString();
+                                  json.ForeColor = Color.Black;
+                                  json.Font = new Font("Arial", 24, FontStyle.Bold);
+
+                                  control.Controls.Clear();
+                                  control.Controls.Add(json);
+                              }));
+                        }
+                        catch (Exception)
+                        {
+                            // intentionally left blank
+                        }
                     }
                 }
             }
