@@ -22,17 +22,37 @@
     },
     {
       "ID": 5,
-      "IsActive": "false",
+      "IsActive": "true",
       "SensorId": 4
     },
     {
       "ID": 6,
-      "IsActive": "false",
+      "IsActive": "true",
       "SensorId": 5
     },
     {
       "ID": 7,
-      "IsActive": "false",
+      "IsActive": "true",
+      "SensorId": 6
+    },
+    {
+      "ID": 8,
+      "IsActive": "true",
+      "SensorId": 1
+    },
+    {
+      "ID": 9,
+      "IsActive": "true",
+      "SensorId": 4
+    },
+    {
+      "ID": 10,
+      "IsActive": "true",
+      "SensorId": 5
+    },
+    {
+      "ID": 11,
+      "IsActive": "true",
       "SensorId": 6
     }
   ]

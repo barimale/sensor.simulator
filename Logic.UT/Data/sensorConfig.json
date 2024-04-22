@@ -30,7 +30,7 @@
       "MinValue": 0,
       "MaxValue": 255,
       "EncoderType": "fixed",
-      "Frequency": 20 //Hz
+      "Frequency": 10 //Hz
     },
     {
       "ID": 5,
@@ -38,7 +38,7 @@
       "MinValue": 0,
       "MaxValue": 255,
       "EncoderType": "fixed",
-      "Frequency": 50 //Hz
+      "Frequency": 10 //Hz
     },
     {
       "ID": 6,
@@ -46,7 +46,7 @@
       "MinValue": 0,
       "MaxValue": 255,
       "EncoderType": "fixed",
-      "Frequency": 150 //Hz
+      "Frequency": 10 //Hz
     }
   ]
 }
