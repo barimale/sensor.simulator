@@ -42,6 +42,13 @@ namespace Transmiter
                 var json = new Label();
                 json.AutoSize = true;
                 json.Text = item.ToMultilineText();
+                json.Text += "\n" + "Receivers: " + string.Join(
+                    ',',
+                    _transmitManager
+                        .Receivers
+                        .Receivers
+                        .Where(pp => pp.SensorId == item.ID)
+                        .Select(p => p.ID));
                 json.Font = new Font("Arial", 14, FontStyle.Regular);
                 json.ForeColor = Color.Black;
                 mPage.Controls.Add(json);

@@ -25,6 +25,7 @@ namespace Logic.Managers
             MapSensorsToChannels(hostName);
         }
 
+        public ReceiverConfigCollection Receivers => receivers;
         public SensorConfigCollection Sensors => sensors;
         public List<System.Timers.Timer> Simulators => _simulators.Values.ToList();
 
