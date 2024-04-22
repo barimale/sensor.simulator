@@ -1,7 +1,4 @@
 ﻿using Logic.Utilities;
-using static System.Net.Mime.MediaTypeNames;
-using System.Drawing;
-using System.Reflection.Emit;
 
 namespace Logic.Model
 {
