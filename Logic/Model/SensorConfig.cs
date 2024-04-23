@@ -29,10 +29,7 @@ namespace Logic.Model
             labelText += "\n" + "MaxValue: " + this.MaxValue;
             labelText += "\n" + "EncoderType: " + this.EncoderType;
             labelText += "\n" + "Frequency: " + this.Frequency;
-            if(!string.IsNullOrEmpty(receivers))
-            {
-                labelText += "\n" + "Receivers: " + receivers;
-            }
+            labelText += "\n" + "Receivers: " + receivers;
 
             return labelText;
         }
