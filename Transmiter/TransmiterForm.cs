@@ -35,24 +35,24 @@ namespace Transmiter
         {
             foreach (var item in _transmitManager.Sensors.Sensors)
             {
-                TabPage mPage = new TabPage();
-                mPage.Text = item.ID.ToString();
-                mPage.BackColor = Color.White;
+                TabPage page = new TabPage();
+                page.Text = item.ID.ToString();
+                page.BackColor = Color.White;
 
-                var json = new Label();
-                json.AutoSize = true;
-                json.Text = item.ToMultilineText();
-                json.Text += "\n" + "Receivers: " + string.Join(
+                var label = new Label();
+                label.AutoSize = true;
+                label.Text = item.ToMultilineText();
+                label.Text += "\n" + "Receivers: " + string.Join(
                     ',',
                     _transmitManager
                         .Receivers
                         .Receivers
                         .Where(pp => pp.SensorId == item.ID)
                         .Select(p => p.ID));
-                json.Font = new Font("Arial", 14, FontStyle.Regular);
-                json.ForeColor = Color.Black;
-                mPage.Controls.Add(json);
-                tbdynamic.TabPages.Add(mPage);
+                label.Font = new Font("Arial", 14, FontStyle.Regular);
+                label.ForeColor = Color.Black;
+                page.Controls.Add(label);
+                tbdynamic.TabPages.Add(page);
             }
 
             this.Controls.Add(tbdynamic);

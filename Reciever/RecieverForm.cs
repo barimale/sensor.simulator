@@ -30,8 +30,8 @@ namespace Reciever
                 this.RabbitHostName);
 
             // mappings
-            MapReceiversToPages();
-            SubscribeChannels();
+            MapReceiversToGroupBoxes();
+            SubscribeToChannels();
         }
 
         private void Preconfigure()
@@ -47,9 +47,8 @@ namespace Reciever
             tbdynamic.WrapContents = true;
         }
 
-        private void SubscribeChannels()
+        private void SubscribeToChannels()
         {
-            // subscribe to channels
             foreach (var channel in _consumeManager.Channels)
             {
                 var consumer = new EventingBasicConsumer(channel.Channel);
@@ -68,25 +67,25 @@ namespace Reciever
             }
         }
 
-        private void MapReceiversToPages()
+        private void MapReceiversToGroupBoxes()
         {
             foreach (var item in _consumeManager.Receivers.Receivers.Where(p => p.IsActive))
             {
-                GroupBox gb = new GroupBox();
-                gb.Text = item.ToChannelName();
-                gb.Tag = item.ToChannelName();
-                gb.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                GroupBox groupBox = new GroupBox();
+                groupBox.Text = item.ToChannelName();
+                groupBox.Tag = item.ToChannelName();
+                groupBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
-                Label mPage = new Label();
-                mPage.Tag = item.SensorId;
-                mPage.BackColor = Color.Transparent;
-                mPage.Height *= 4;
-                mPage.Width *= 3;
-                mPage.Padding = new Padding(30);
-                mPage.Dock = DockStyle.Fill;
-                gb.Controls.Add(mPage);
+                Label label = new Label();
+                label.Tag = item.SensorId;
+                label.BackColor = Color.Transparent;
+                label.Height *= 4;
+                label.Width *= 3;
+                label.Padding = new Padding(30);
+                label.Dock = DockStyle.Fill;
+                groupBox.Controls.Add(label);
 
-                tbdynamic.Controls.Add(gb);
+                tbdynamic.Controls.Add(groupBox);
             }
 
             this.Controls.Add(tbdynamic);
@@ -107,19 +106,19 @@ namespace Reciever
 
                         try
                         {
+                            control.BackColor = result.FromClassificationToColor();
+
+                            var label = new Label();
+                            label.AutoSize = true;
+                            label.Text = result.Value.ToString();
+                            label.ForeColor = Color.Black;
+                            label.Font = new Font("Arial", 24, FontStyle.Bold);
+
                             this.Invoke(
                               new Action(() =>
                               {
-                                  control.BackColor = result.FromClassificationToColor();
-
-                                  var json = new Label();
-                                  json.AutoSize = true;
-                                  json.Text = result.Value.ToString();
-                                  json.ForeColor = Color.Black;
-                                  json.Font = new Font("Arial", 24, FontStyle.Bold);
-
                                   control.Controls.Clear();
-                                  control.Controls.Add(json);
+                                  control.Controls.Add(label);
                               }));
                         }
                         catch (Exception)
