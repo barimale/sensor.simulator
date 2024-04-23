@@ -2,6 +2,7 @@ using Logic.Managers;
 using Logic.Model;
 using RabbitMQ.Client.Events;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Reciever
 {
@@ -85,6 +86,7 @@ namespace Reciever
                 label.ForeColor = Color.Black;
                 label.Font = new Font("Arial", 24, FontStyle.Bold);
                 label.MinimumSize = new Size(label.Width, label.Height);
+                label.AutoSize = true;
 
                 groupBox.Controls.Add(label);
                 tbdynamic.Controls.Add(groupBox);
@@ -117,7 +119,6 @@ namespace Reciever
                         this.Invoke(
                             new Action(() =>
                             {
-                                control.AutoSize = true;
                                 control.Text = result.Value.ToString();
                             }));
                     }
