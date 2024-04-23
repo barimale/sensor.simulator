@@ -103,24 +103,25 @@ namespace Reciever
             {
                 foreach (Control control in groupBox.Controls)
                 {
-                    if ((int)control.Tag == sensor.ID)
+                    if ((int)control.Tag != sensor.ID)
                     {
+                        continue;
+                    }
 
-                        try
-                        {
-                            control.BackColor = result.FromClassificationToColor();
+                    try
+                    {
+                        control.BackColor = result.FromClassificationToColor();
 
-                            this.Invoke(
-                              new Action(() =>
-                              {
-                                  control.AutoSize = true;
-                                  control.Text = result.Value.ToString();
-                              }));
-                        }
-                        catch (Exception)
-                        {
-                            // intentionally left blank
-                        }
+                        this.Invoke(
+                            new Action(() =>
+                            {
+                                control.AutoSize = true;
+                                control.Text = result.Value.ToString();
+                            }));
+                    }
+                    catch (Exception)
+                    {
+                        // intentionally left blank
                     }
                 }
             }
