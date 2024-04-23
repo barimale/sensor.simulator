@@ -28,7 +28,7 @@
     {
       "ID": 6,
       "IsActive": "true",
-      "SensorId": 5
+      "SensorId": 4
     },
     {
       "ID": 7,
@@ -48,7 +48,7 @@
     {
       "ID": 10,
       "IsActive": "true",
-      "SensorId": 5
+      "SensorId": 4
     },
     {
       "ID": 11,

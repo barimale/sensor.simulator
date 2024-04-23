@@ -3,6 +3,7 @@ using Logic.Model;
 using RabbitMQ.Client.Events;
 using System.Drawing.Printing;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Reciever
 {
@@ -83,8 +84,9 @@ namespace Reciever
                 label.Width *= 3;
                 label.Padding = new Padding(30);
                 label.Dock = DockStyle.Fill;
+                label.MinimumSize = new Size(label.Width, label.Height);
+                
                 groupBox.Controls.Add(label);
-
                 tbdynamic.Controls.Add(groupBox);
             }
 
@@ -108,17 +110,13 @@ namespace Reciever
                         {
                             control.BackColor = result.FromClassificationToColor();
 
-                            var label = new Label();
-                            label.AutoSize = true;
-                            label.Text = result.Value.ToString();
-                            label.ForeColor = Color.Black;
-                            label.Font = new Font("Arial", 24, FontStyle.Bold);
-
                             this.Invoke(
                               new Action(() =>
                               {
-                                  control.Controls.Clear();
-                                  control.Controls.Add(label);
+                                  control.AutoSize = true;
+                                  control.Text = result.Value.ToString();
+                                  control.ForeColor = Color.Black;
+                                  control.Font = new Font("Arial", 24, FontStyle.Bold);
                               }));
                         }
                         catch (Exception)
