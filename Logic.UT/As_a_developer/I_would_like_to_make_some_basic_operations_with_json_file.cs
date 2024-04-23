@@ -26,7 +26,7 @@ namespace Logic.UT.As_a_developer
 
             // then
             Assert.NotNull(result);
-            Assert.Equal(3, result.Sensors.Count);
+            Assert.Equal(6, result.Sensors.Count);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace Logic.UT.As_a_developer
 
             // then
             Assert.NotNull(result);
-            Assert.Equal(5, result.Receivers.Count);
+            Assert.Equal(11, result.Receivers.Count);
         }
     }
 }
