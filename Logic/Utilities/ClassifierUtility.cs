@@ -1,4 +1,6 @@
-﻿namespace Logic.Utilities
+﻿using Logic.Model;
+
+namespace Logic.Utilities
 {
     public static class ClassifierUtility
     {
@@ -23,12 +25,5 @@
                     return Classification.Alarm;
             }
         }
-    }
-
-    public enum Classification
-    {
-        Alarm = 0,
-        Warning,
-        Normal
     }
 }
