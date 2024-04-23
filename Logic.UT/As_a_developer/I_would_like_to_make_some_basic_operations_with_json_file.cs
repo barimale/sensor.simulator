@@ -15,18 +15,6 @@ namespace Logic.UT.As_a_developer
         }
 
         [Fact]
-        public void Obtain_classification()
-        {
-            // given
-
-            // when
-            var result = ClassifierUtility.ClassifySignal();
-
-            // then
-            // examine value in manuall way(breakpoint)
-        }
-
-        [Fact]
         public void Read_sensors_config_file_and_map_to_class()
         {
             // given
