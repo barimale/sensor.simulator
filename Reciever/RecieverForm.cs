@@ -97,9 +97,9 @@ namespace Reciever
             if (result == null || result.Classification == null)
                 return;
 
-            foreach (Control page in tbdynamic.Controls)
+            foreach (Control groupBox in tbdynamic.Controls)
             {
-                foreach (Control control in page.Controls)
+                foreach (Control control in groupBox.Controls)
                 {
                     if ((int)control.Tag == sensor.ID)
                     {
@@ -124,10 +124,6 @@ namespace Reciever
                         catch (Exception)
                         {
                             // intentionally left blank
-                        }
-                        finally{
-                            GC.Collect();
-                            GC.WaitForPendingFinalizers(); // maybe not 
                         }
                     }
                 }
