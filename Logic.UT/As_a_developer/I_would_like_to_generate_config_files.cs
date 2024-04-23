@@ -15,8 +15,8 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("e:\\SensorConfig.json", 50)]
-        public void Generate_config_file(string path, int sensorAmount)
+        [InlineData("e:\\SensorConfig.json", 20)]
+        public void Generate_sensor_config_file(string path, int sensorAmount)
         {
             // given
             var json = new SensorConfigCollection();
@@ -40,7 +40,32 @@ namespace Logic.UT.As_a_developer
 
             // then
             File.WriteAllText(path, content);
+        }
 
+        [Theory]
+        [InlineData("e:\\ReceiverConfig.json", 20, 30)]
+        public void Generate_receiver_config_file(string path, int sensorAmount, int receiverAmount)
+        {
+            // given
+            var json = new ReceiverConfigCollection();
+            var randomizer = new Random();
+            // when
+            for (int i = 1; i <= receiverAmount; i++)
+            {
+                var sensor = new ReceiverConfig()
+                {
+                    ID = i,
+                    IsActive = true,
+                    SensorId = randomizer.Next(1, sensorAmount)
+                };
+
+                json.Receivers.Add(sensor);
+            }
+
+            var content = JsonConvert.SerializeObject(json);
+
+            // then
+            File.WriteAllText(path, content);
         }
     }
 }
