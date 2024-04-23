@@ -1,6 +1,5 @@
 using Logic.Services;
 using Logic.UT.BaseUT;
-using Logic.Utilities;
 using Xunit.Abstractions;
 
 namespace Logic.UT.As_a_developer
