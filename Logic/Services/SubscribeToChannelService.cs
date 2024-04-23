@@ -3,7 +3,7 @@ using RabbitMQ.Client.Events;
 
 namespace Logic.Services
 {
-    public class SubscribeToChannelService: IDisposable
+    public class SubscribeToChannelService : IDisposable
     {
         private readonly string _hostName;
         private IModel _channel;

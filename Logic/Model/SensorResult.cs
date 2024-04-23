@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using Logic.Utilities;
+﻿using Logic.Utilities;
+using System.Drawing;
 
 namespace Logic.Model
 {
@@ -21,7 +21,7 @@ namespace Logic.Model
 
         public Color FromClassificationToColor()
         {
-            switch(Classification)
+            switch (Classification)
             {
                 case Classification.Normal:
                     return Color.White;

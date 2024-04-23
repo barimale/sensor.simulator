@@ -31,7 +31,7 @@ namespace Transmiter
             MapSensorsToPages();
         }
 
-       
+
         private void MapSensorsToPages()
         {
             foreach (var item in _transmitManager.Sensors)

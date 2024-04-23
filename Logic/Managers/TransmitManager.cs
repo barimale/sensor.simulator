@@ -13,10 +13,10 @@ namespace Logic.Managers
         private TransmitManager()
         {
             _channels = new List<PublishToChannelService>();
-            _simulators = new Dictionary<int,System.Timers.Timer>();
+            _simulators = new Dictionary<int, System.Timers.Timer>();
         }
         public TransmitManager(string receiversPath, string sensorsPath, string hostName)
-            :this()
+            : this()
         {
             ReadSensors(sensorsPath);
             ReadReceivers(receiversPath);

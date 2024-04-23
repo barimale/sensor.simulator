@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Logic.Services
 {
-    public class PublishToChannelService: IDisposable
+    public class PublishToChannelService : IDisposable
     {
         private readonly string _hostName;
         private IModel _channel;

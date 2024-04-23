@@ -85,7 +85,7 @@ namespace Reciever
                 label.ForeColor = Color.Black;
                 label.Font = new Font("Arial", 24, FontStyle.Bold);
                 label.MinimumSize = new Size(label.Width, label.Height);
-                
+
                 groupBox.Controls.Add(label);
                 tbdynamic.Controls.Add(groupBox);
             }
