@@ -127,6 +127,7 @@ namespace Reciever
                         }
                         finally{
                             GC.Collect();
+                            GC.WaitForPendingFinalizers(); // maybe not 
                         }
                     }
                 }
