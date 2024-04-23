@@ -2,7 +2,6 @@ using Logic.Managers;
 using Logic.Model;
 using RabbitMQ.Client.Events;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Reciever
 {

@@ -21,7 +21,7 @@ namespace Logic.UT.As_a_developer
             // given
             var json = new SensorConfigCollection();
             // when
-            for(int i = 1; i <= sensorAmount; i++)
+            for (int i = 1; i <= sensorAmount; i++)
             {
                 var sensor = new SensorConfig()
                 {
