@@ -125,6 +125,9 @@ namespace Reciever
                         {
                             // intentionally left blank
                         }
+                        finally{
+                            GC.Collect();
+                        }
                     }
                 }
             }
