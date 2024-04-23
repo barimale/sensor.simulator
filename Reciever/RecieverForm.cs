@@ -84,6 +84,8 @@ namespace Reciever
                 label.Width *= 3;
                 label.Padding = new Padding(30);
                 label.Dock = DockStyle.Fill;
+                label.ForeColor = Color.Black;
+                label.Font = new Font("Arial", 24, FontStyle.Bold);
                 label.MinimumSize = new Size(label.Width, label.Height);
                 
                 groupBox.Controls.Add(label);
@@ -115,8 +117,6 @@ namespace Reciever
                               {
                                   control.AutoSize = true;
                                   control.Text = result.Value.ToString();
-                                  control.ForeColor = Color.Black;
-                                  control.Font = new Font("Arial", 24, FontStyle.Bold);
                               }));
                         }
                         catch (Exception)
