@@ -15,8 +15,7 @@ Path to them is pass as a param.
 Receiver and Transmiter are executed together.
 
 # Step by step
-Execute dockerized rabbitmq.
-Copy config files to e://(from Logic.UT/Data)
-OR pass path to them as paramas to exe as described in project-scoped README.md.
-Execute multiple startup projects (Receiver and Transmiter)
-Press START to run simulator.
+- Execute dockerized rabbitmq.
+- Copy config files to e://(from Logic.UT/Data) OR pass path to them as paramas to exe as described in project-scoped README.md.
+- Execute multiple startup projects (Receiver and Transmiter)
+- Press START to run simulator.
