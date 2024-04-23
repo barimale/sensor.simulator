@@ -103,7 +103,9 @@ namespace Reciever
             {
                 foreach (Control control in groupBox.Controls)
                 {
-                    if ((int)control.Tag != sensor.ID)
+                    if (control == null
+                        || sensor == null
+                        || (int)control.Tag != sensor.ID)
                     {
                         continue;
                     }
