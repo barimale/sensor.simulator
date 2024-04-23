@@ -1,4 +1,5 @@
 using Logic.Managers;
+using Logic.Model;
 
 namespace Transmiter
 {
@@ -33,7 +34,7 @@ namespace Transmiter
        
         private void MapSensorsToPages()
         {
-            foreach (var item in _transmitManager.Sensors.Sensors)
+            foreach (var item in _transmitManager.Sensors)
             {
                 TabPage page = new TabPage();
                 page.Text = item.ID.ToString();
@@ -41,15 +42,8 @@ namespace Transmiter
 
                 var label = new Label();
                 label.AutoSize = true;
-                label.Text = item.ToMultilineText();
-                label.Text += "\n" + "Receivers: " + string.Join(
-                    ',',
-                    _transmitManager
-                        .Receivers
-                        .Receivers
-                        .Where(pp => pp.SensorId == item.ID)
-                        .Select(p => p.ID));
-                label.Font = new Font("Arial", 14, FontStyle.Regular);
+                label.Text = item.ToMultilineText(GetLinkedReceivers(item));
+                label.Font = new Font("Arial", 12, FontStyle.Regular);
                 label.ForeColor = Color.Black;
                 page.Controls.Add(label);
                 tbdynamic.TabPages.Add(page);
@@ -57,6 +51,16 @@ namespace Transmiter
 
             this.Controls.Add(tbdynamic);
             tbdynamic.BringToFront();
+        }
+
+        private string GetLinkedReceivers(SensorConfig item)
+        {
+            return string.Join(
+                ',',
+                _transmitManager
+                    .Receivers
+                    .Where(pp => pp.SensorId == item.ID)
+                    .Select(p => p.ID));
         }
 
         private void Preconfigure()

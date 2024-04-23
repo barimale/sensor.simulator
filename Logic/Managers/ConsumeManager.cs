@@ -23,8 +23,8 @@ namespace Logic.Managers
             MapReceiversToChannels(hostName);
         }
 
-        public SensorConfigCollection Sensors => sensors;
-        public ReceiverConfigCollection Receivers => receivers;
+        public List<SensorConfig> Sensors => sensors.Sensors;
+        public List<ReceiverConfig> Receivers => receivers.Receivers;
         public List<SubscribeToChannelService> Channels => _channels;
 
         private void MapReceiversToChannels(string hostName)

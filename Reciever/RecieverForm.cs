@@ -1,6 +1,7 @@
 using Logic.Managers;
 using Logic.Model;
 using RabbitMQ.Client.Events;
+using System.Drawing.Printing;
 using System.Text;
 
 namespace Reciever
@@ -41,7 +42,6 @@ namespace Reciever
             tbdynamic.Height = this.Height;
             tbdynamic.Width = this.Width;
             tbdynamic.FlowDirection = FlowDirection.LeftToRight;
-            tbdynamic.Margin = new Padding(50);
             tbdynamic.Dock = DockStyle.Fill;
             tbdynamic.AutoScroll = true;
             tbdynamic.WrapContents = true;
@@ -58,7 +58,7 @@ namespace Reciever
                     var message = Encoding.UTF8.GetString(body);
 
                     var result = new SensorResult(message);
-                    var sensor = _consumeManager.Sensors.Sensors.FirstOrDefault(p => p.ID == result.ID);
+                    var sensor = _consumeManager.Sensors.FirstOrDefault(p => p.ID == result.ID);
 
                     ApplyChangesToUI(result, sensor);
                 };
@@ -69,7 +69,7 @@ namespace Reciever
 
         private void MapReceiversToGroupBoxes()
         {
-            foreach (var item in _consumeManager.Receivers.Receivers.Where(p => p.IsActive))
+            foreach (var item in _consumeManager.Receivers.Where(p => p.IsActive))
             {
                 GroupBox groupBox = new GroupBox();
                 groupBox.Text = item.ToChannelName();

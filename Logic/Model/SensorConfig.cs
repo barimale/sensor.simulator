@@ -21,7 +21,7 @@ namespace Logic.Model
             return result;
         }
 
-        public string ToMultilineText()
+        public string ToMultilineText(string receivers)
         {
             var labelText = "ID: " + this.ID;
             labelText += "\n" + "Type: " + this.Type;
@@ -29,6 +29,10 @@ namespace Logic.Model
             labelText += "\n" + "MaxValue: " + this.MaxValue;
             labelText += "\n" + "EncoderType: " + this.EncoderType;
             labelText += "\n" + "Frequency: " + this.Frequency;
+            if(!string.IsNullOrEmpty(receivers))
+            {
+                labelText += "\n" + "Receivers: " + receivers;
+            }
 
             return labelText;
         }
