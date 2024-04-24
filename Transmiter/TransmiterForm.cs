@@ -71,7 +71,7 @@ namespace Transmiter
             this.MinimizeBox = false;
             tbdynamic.Top = 30;
             tbdynamic.Height = this.Height - 30;
-            tbdynamic.Width = this.Width;
+            tbdynamic.Width = this.Width - 20;
         }
 
         private void sTARTToolStripMenuItem_Click(object sender, EventArgs e)
