@@ -36,7 +36,7 @@ namespace Logic.UT.As_a_developer
                 json.Sensors.Add(sensor);
             }
 
-            var content = JsonConvert.SerializeObject(json);
+            var content = JsonConvert.SerializeObject(json, Formatting.Indented);
 
             // then
             File.WriteAllText(path, content);
@@ -62,7 +62,7 @@ namespace Logic.UT.As_a_developer
                 json.Receivers.Add(sensor);
             }
 
-            var content = JsonConvert.SerializeObject(json);
+            var content = JsonConvert.SerializeObject(json, Formatting.Indented);
 
             // then
             File.WriteAllText(path, content);
