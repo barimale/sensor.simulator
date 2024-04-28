@@ -55,35 +55,34 @@ namespace Logic.Managers
 
         private void Simulator_Tick(object sender, EventArgs e)
         {
-            var tag = sender as System.Timers.Timer;
-            if (tag == null)
+            var simulator = sender as System.Timers.Timer;
+            if (simulator == null)
                 return;
 
-            var key = _simulators.Where(p => p.Value == tag).FirstOrDefault().Key;
-            var tagID = (int)key;
+            var key = _simulators.Where(p => p.Value == simulator).FirstOrDefault().Key;
+            var simulatorID = (int)key;
 
             var configurations = receivers
                 .Receivers
                 .Where(p => p.IsActive)
-                .Where(p => p.SensorId == tagID)
+                .Where(p => p.SensorId == simulatorID)
                 .ToList();
 
-            // maybe inside the loop before send
             var message = sensors
                    .Sensors
-                   .FirstOrDefault(p => p.ID == tagID)
+                   .FirstOrDefault(p => p.ID == simulatorID)
                    .ToTelegram();
 
             foreach (var configuration in configurations)
             {
                 if (configuration == null)
-                    return;
+                    continue;
 
                 var channel = _channels
                     .FirstOrDefault(p => p.ChannelName == configuration.ToChannelName());
 
                 if (channel == null)
-                    return;
+                    continue;
 
                 channel.Send(message);
             }
