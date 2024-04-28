@@ -68,6 +68,7 @@ namespace Logic.Managers
                 .Where(p => p.SensorId == tagID)
                 .ToList();
 
+            // maybe inside the loop before send
             var message = sensors
                    .Sensors
                    .FirstOrDefault(p => p.ID == tagID)
