@@ -47,7 +47,7 @@ namespace Logic.Managers
                 var simulator = new System.Timers.Timer();
                 simulator.AutoReset = true;
                 double secondInMilliseconds = 1000;
-                simulator.Interval = (int)(secondInMilliseconds / item.Frequency); // seconds
+                simulator.Interval = (int)(secondInMilliseconds / item.Frequency);
                 simulator.Elapsed += Simulator_Tick;
                 _simulators.Add(item.ID, simulator);
             }
@@ -68,6 +68,11 @@ namespace Logic.Managers
                 .Where(p => p.SensorId == tagID)
                 .ToList();
 
+            var message = sensors
+                   .Sensors
+                   .FirstOrDefault(p => p.ID == tagID)
+                   .ToTelegram();
+
             foreach (var configuration in configurations)
             {
                 if (configuration == null)
@@ -78,11 +83,6 @@ namespace Logic.Managers
 
                 if (channel == null)
                     return;
-
-                var message = sensors
-                    .Sensors
-                    .FirstOrDefault(p => p.ID == configuration.SensorId)
-                    .ToTelegram();
 
                 channel.Send(message);
             }
