@@ -3,9 +3,9 @@ using System.Drawing;
 
 namespace Logic.Model
 {
-    public class SensorResult
+    public class ReveivedTelegram
     {
-        public SensorResult(string fromMessage)
+        public ReveivedTelegram(string fromMessage)
         {
             var items = fromMessage.Split(',').ToList();
             ID = int.Parse(items[1]);
