@@ -4,10 +4,13 @@ namespace Logic.Utilities
 {
     public static class ClassifierUtility
     {
+        private const int MIN_VALUE = 0;
+        private const int MAX_VALUE = 100;
+
         public static Classification ClassifySignal()
         {
             var randomizer = new Random();
-            var result = randomizer.Next(0, 100);
+            var result = randomizer.Next(MIN_VALUE, MAX_VALUE);
 
             switch (result)
             {
