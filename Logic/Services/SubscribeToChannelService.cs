@@ -3,40 +3,21 @@ using RabbitMQ.Client.Events;
 
 namespace Logic.Services
 {
-    public class SubscribeToChannelService : IDisposable
+    public class SubscribeToChannelService : BaseChannelService
     {
-        private readonly string _hostName;
-        private IModel _channel;
-        private IConnection _connection;
-        private string _channelName;
         public SubscribeToChannelService(string hostName)
+            : base(hostName)
         {
-            _hostName = hostName;
+            // intentionally left blank
         }
 
-        public string ChannelName => _channelName;
-        public IModel Channel => _channel;
-
-        public void CreateChannel(string channelName)
-        {
-            _channelName = channelName;
-
-            var factory = new ConnectionFactory { HostName = _hostName };
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            _channel.QueueDeclare(queue: _channelName,
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-        }
+        public IModel Channel => base._channel;
 
         public bool Consume(EventingBasicConsumer consumer)
         {
             try
             {
-                _channel.BasicConsume(queue: _channelName,
+                _channel.BasicConsume(queue: ChannelName,
                                      autoAck: true,
                                      consumer: consumer);
 
@@ -46,14 +27,6 @@ namespace Logic.Services
             {
                 return false;
             }
-        }
-
-        public void Dispose()
-        {
-            _channel.Close();
-            _connection.Close();
-            _connection.Dispose();
-            _channel.Dispose();
         }
     }
 }
