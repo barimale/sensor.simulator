@@ -3,7 +3,7 @@ using Logic.Services;
 
 namespace Logic.Managers
 {
-    public class TransmitManager: BaseManager
+    public class TransmitManager : BaseManager
     {
         private List<PublishToChannelService> _channels = new List<PublishToChannelService>();
         private Dictionary<int, System.Timers.Timer> _simulators = new Dictionary<int, System.Timers.Timer>();

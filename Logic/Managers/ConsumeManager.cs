@@ -2,13 +2,14 @@
 
 namespace Logic.Managers
 {
-    public class ConsumeManager: BaseManager
+    public class ConsumeManager : BaseManager
     {
         private List<SubscribeToChannelService> _channels = new List<SubscribeToChannelService>();
 
         public ConsumeManager(string receiversPath, string sensorsPath, string hostName)
             : base(receiversPath, sensorsPath)
         {
+            // mapping
             MapReceiversToChannels(hostName);
         }
         public List<SubscribeToChannelService> Channels => _channels;
