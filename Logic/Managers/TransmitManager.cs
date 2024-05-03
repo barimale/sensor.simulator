@@ -56,10 +56,6 @@ namespace Logic.Managers
                 .Where(p => p.SensorId == simulatorID)
                 .ToList();
 
-            var message = Sensors
-                   .FirstOrDefault(p => p.ID == simulatorID)
-                   .ToTelegram();
-
             foreach (var configuration in configurations)
             {
                 if (configuration == null)
@@ -70,6 +66,10 @@ namespace Logic.Managers
 
                 if (channel == null)
                     continue;
+
+                var message = Sensors
+                   .FirstOrDefault(p => p.ID == configuration.SensorId)
+                   .ToTelegram();
 
                 channel.Send(message);
             }
