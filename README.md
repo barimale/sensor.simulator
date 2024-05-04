@@ -19,3 +19,5 @@ Receiver and Transmiter are executed together.
 - Copy config files to e://(from Logic.UT/Data) and pass path to them as paramas to exe as described in project-scoped README.md.
 - Execute multiple startup projects (Receiver and Transmiter)
 - Press START to run simulator.
+
+https://stackoverflow.com/questions/9701840/how-to-create-a-shortcut-using-powershell
