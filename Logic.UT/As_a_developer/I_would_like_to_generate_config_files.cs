@@ -43,20 +43,25 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("e:\\ReceiverConfig.json", 5, 30)]
-        public void Generate_receiver_config_file(string path, int sensorAmount, int receiverAmount)
+        [InlineData("e:\\ReceiverConfig.json", 5, 30, 1)]
+        [InlineData("e:\\ReceiverConfig2.json", 5, 30, 31)]
+        public void Generate_receiver_config_file(
+            string path,
+            int sensorAmount,
+            int receiverAmount,
+            int receiverInitialID)
         {
             // given
             var json = new ReceiverConfigCollection();
             var randomizer = new Random();
             // when
-            for (int i = 1; i <= receiverAmount; i++)
+            for (int i = receiverInitialID; i < receiverAmount + receiverInitialID; i++)
             {
                 var sensor = new ReceiverConfig()
                 {
                     ID = i,
                     IsActive = true,
-                    SensorId = randomizer.Next(1, sensorAmount)
+                    SensorId = randomizer.Next(1, sensorAmount+1)
                 };
 
                 json.Receivers.Add(sensor);
