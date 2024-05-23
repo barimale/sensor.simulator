@@ -5,7 +5,7 @@ namespace Logic.Utilities
     public static class ClassifierUtility
     {
         private const int LOW_LEVEL = 0;
-        private const int HIGH_LEVEL = 100;
+        private const int HIGH_LEVEL = 101;
 
         public static Classification ClassifySignal()
         {
