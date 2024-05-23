@@ -1,4 +1,4 @@
 ﻿# Execution - parameters
 ```
-localhost   "e://receiverConfig2.json"  "e://sensorConfig.json"
+localhost   "e://receiverConfig.json"  "e://sensorConfig.json"
 ```
