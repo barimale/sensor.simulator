@@ -6,4 +6,7 @@
 /Reciever/obj
 /Transmiter/obj
 /Transmiter/bin
-/.vs
+/.vs/Simulator/FileContentIndex
+/.vs/Simulator/v17/*.json
+/.vs/Simulator/v17/TestStore/0/*.testlog
+/.vs/Simulator/v17/TestStore/0/*.manifest
