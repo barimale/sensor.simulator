@@ -12,7 +12,7 @@ config files for both startup projects.
 Paths to them are pass as params.
 
 # Multiple startup projects
-Receiver and Transmiter are executed together.
+Receiver and Transmiter are executed in parallel.
 
 # Step by step
 - Execute dockerized rabbitmq.
