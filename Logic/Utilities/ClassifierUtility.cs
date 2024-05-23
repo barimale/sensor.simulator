@@ -5,12 +5,12 @@ namespace Logic.Utilities
     public static class ClassifierUtility
     {
         private const int LOW_LEVEL = 0;
-        private const int HIGH_LEVEL = 101;
+        private const int HIGH_LEVEL = 100;
 
         public static Classification ClassifySignal()
         {
             var randomizer = new Random();
-            var result = randomizer.Next(LOW_LEVEL, HIGH_LEVEL);
+            var result = randomizer.Next(LOW_LEVEL, HIGH_LEVEL + 1);
 
             switch (result)
             {
@@ -22,7 +22,7 @@ namespace Logic.Utilities
                     return Classification.Normal;
                 case < 90:
                     return Classification.Warning;
-                case < 100:
+                case <= 100:
                     return Classification.Alarm;
                 default:
                     return Classification.Alarm;

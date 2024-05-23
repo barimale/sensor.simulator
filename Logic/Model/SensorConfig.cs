@@ -14,7 +14,7 @@ namespace Logic.Model
         public string ToTelegram()
         {
             var randomizer = new Random();
-            var value = randomizer.Next(MinValue, MaxValue);
+            var value = randomizer.Next(MinValue, MaxValue + 1);
 
             var result = "$FIX," + this.ID.ToString() + "," + Type + "," + value + "," + ClassifierUtility.ClassifySignal();
 
