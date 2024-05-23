@@ -1,5 +1,4 @@
-﻿using Logic.Model;
-using Logic.Services;
+﻿using Logic.Services;
 
 namespace Logic.Managers
 {
