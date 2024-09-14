@@ -2,9 +2,9 @@
 
 namespace Logic.Model
 {
-    public class ReveivedTelegram
+    public class ReceivedTelegram
     {
-        public ReveivedTelegram(string fromMessage)
+        public ReceivedTelegram(string fromMessage)
         {
             var items = fromMessage.Split(',').ToList();
             ID = int.Parse(items[1]);

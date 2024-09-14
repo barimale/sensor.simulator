@@ -56,7 +56,7 @@ namespace Reciever
                     var body = ea.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
 
-                    var result = new ReveivedTelegram(message);
+                    var result = new ReceivedTelegram(message);
                     var sensor = _consumeManager.Sensors.FirstOrDefault(p => p.ID == result.ID);
 
                     ApplyChangesToUI(result, sensor);
@@ -95,7 +95,7 @@ namespace Reciever
             tbdynamic.BringToFront();
         }
 
-        private void ApplyChangesToUI(ReveivedTelegram result, SensorConfig? sensor)
+        private void ApplyChangesToUI(ReceivedTelegram result, SensorConfig? sensor)
         {
             if (result == null || result.Classification == null)
                 return;
