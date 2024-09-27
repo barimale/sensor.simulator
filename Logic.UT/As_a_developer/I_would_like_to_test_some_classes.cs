@@ -22,7 +22,7 @@ namespace Logic.UT.As_a_developer
             var result = ClassifierUtility.ClassifySignal();
 
             // then
-            // examine value in manuall way(breakpoint)
+            Assert.NotNull(result);
         }
     }
 }
