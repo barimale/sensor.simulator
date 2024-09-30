@@ -2,7 +2,7 @@
   "profiles": {
     "Transmiter": {
       "commandName": "Project",
-      "commandLineArgs": "localhost   \"e://receiverConfig.json\" \"e://sensorConfig.json\"\r\n"
+      "commandLineArgs": "localhost   \"s://receiverConfig.json\" \"s://sensorConfig.json\"\r\n"
     }
   }
 }
