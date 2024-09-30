@@ -15,7 +15,7 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("e:\\SensorConfig.json", 5)]
+        [InlineData("s:\\SensorConfig.json", 5)]
         public void Generate_sensor_config_file(string path, int sensorAmount)
         {
             // given
@@ -43,8 +43,8 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("e:\\ReceiverConfig.json", 5, 30, 1)]
-        [InlineData("e:\\ReceiverConfig2.json", 5, 30, 31)]
+        [InlineData("s:\\ReceiverConfig.json", 5, 30, 1)]
+        [InlineData("s:\\ReceiverConfig2.json", 5, 30, 31)]
         public void Generate_receiver_config_file(
             string path,
             int sensorAmount,
