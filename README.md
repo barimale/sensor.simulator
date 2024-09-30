@@ -18,6 +18,6 @@ Receiver and Transmiter are executed in parallel.
 
 ## Step by step
 - Execute dockerized rabbitmq.
-- Copy config files to e://(from Logic.UT/Data) and pass path to them as paramas to executable projects as described in project-scoped README.md.
+- Copy config files to s://(from Logic.UT/Data) and pass path to them as paramas to executable projects as described in project-scoped README.md.
 - Execute multiple startup projects (Receiver and Transmiter)
 - Press START to run simulator.
