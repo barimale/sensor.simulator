@@ -29,7 +29,7 @@ namespace Logic.Model
                 case Classification.Alarm:
                     return Color.Red;
                 default:
-                    return Color.White;
+                    return Color.Red;
             }
         }
     }
