@@ -1,4 +1,5 @@
 using Logic.Model;
+using Logic.Services;
 using Logic.UT.BaseUT;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
@@ -15,22 +16,31 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("s:\\SensorConfig.json", 5)]
+        [InlineData("s:\\SensorConfig.json", 6)]
         public void Generate_sensor_config_file(string path, int sensorAmount)
         {
             // given
+            var reader = new ConfigReader();
+            var pathToSensors = ".//Data//sensorConfig.json";
+            var sensors = reader.ReadSensors(pathToSensors);
+
             var json = new SensorConfigCollection();
             // when
             for (int i = 1; i <= sensorAmount; i++)
             {
+                var template = sensors
+                    .Sensors
+                    .ToList()
+                    .FirstOrDefault(p => p.ID == i);
+
                 var sensor = new SensorConfig()
                 {
                     ID = i,
-                    Type = "speed",
-                    MinValue = -10,
-                    MaxValue = 100,
-                    EncoderType = "fixed",
-                    Frequency = i,
+                    Type = template.Type,
+                    MinValue = template.MinValue,
+                    MaxValue = template.MaxValue,
+                    EncoderType = template.EncoderType,
+                    Frequency = template.Frequency,
                 };
 
                 json.Sensors.Add(sensor);
@@ -43,8 +53,8 @@ namespace Logic.UT.As_a_developer
         }
 
         [Theory]
-        [InlineData("s:\\ReceiverConfig.json", 5, 30, 1)]
-        [InlineData("s:\\ReceiverConfig2.json", 5, 30, 31)]
+        [InlineData("s:\\ReceiverConfig.json", 6, 30, 1)]
+        [InlineData("s:\\ReceiverConfig2.json", 6, 30, 31)]
         public void Generate_receiver_config_file(
             string path,
             int sensorAmount,
