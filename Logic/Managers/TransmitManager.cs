@@ -10,7 +10,6 @@ namespace Logic.Managers
         public TransmitManager(string receiversPath, string sensorsPath, string hostName)
             : base(receiversPath, sensorsPath)
         {
-            // mapping
             MapSensorsToSimulators();
             MapSensorsToChannels(hostName);
         }
@@ -19,7 +18,6 @@ namespace Logic.Managers
 
         private void MapSensorsToChannels(string hostName)
         {
-            // sensors to channels
             foreach (var item in Receivers.Where(p => p.IsActive))
             {
                 var service = new PublishToChannelService(hostName);
@@ -29,7 +27,6 @@ namespace Logic.Managers
         }
         private void MapSensorsToSimulators()
         {
-            // sensors to simulators
             foreach (var item in Sensors)
             {
                 var simulator = new System.Timers.Timer();
