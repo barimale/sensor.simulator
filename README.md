@@ -2,7 +2,7 @@
 
 ## Prereqs
 - Docker Desktop,
-- .NET Core 8.0
+- .NET 8.0 SDK
 
 ## RabbitMQ - docker
 ```
