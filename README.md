@@ -1,7 +1,7 @@
 # sensor.simulator
 
 ## Prereqs
-- Docker Desktop,
+- Docker Desktop
 - .NET 8.0 SDK
 
 ## RabbitMQ - docker
